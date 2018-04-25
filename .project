@@ -18,17 +18,17 @@
 		<link>
 			<name>src/images/BigDaddy.png</name>
 			<type>1</type>
-			<location>C:/Users/Gaspard/Desktop/Projet Info/images/BigDaddy.png</location>
+			<location>/Users/josephbattesti/git/Dagon-AbbyssOfTime/BigDaddy.png</location>
 		</link>
 		<link>
 			<name>src/images/Binding_of_Isaac_Rebirth_dice_room_door.png</name>
 			<type>1</type>
-			<location>C:/Users/Gaspard/Desktop/Projet Info/images/Binding_of_Isaac_Rebirth_dice_room_door.png</location>
+			<location>/Users/josephbattesti/git/Dagon-AbbyssOfTime/Binding_of_Isaac_Rebirth_dice_room_door.png</location>
 		</link>
 		<link>
 			<name>src/images/binding_of_isaac_rebirth_tiles_Ruins.png</name>
 			<type>1</type>
-			<location>C:/Users/Gaspard/Desktop/Projet Info/images/binding_of_isaac_rebirth_tiles_Ruins.png</location>
+			<location>/Users/josephbattesti/git/Dagon-AbbyssOfTime/binding_of_isaac_rebirth_tiles_Ruins.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>
