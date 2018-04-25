@@ -6,9 +6,12 @@ import java.awt.event.KeyListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.Player;
+
 public class Window extends JFrame{
   private Map pan = new Map();
   private JPanel container = new JPanel();
+
   
   public Window(){
     this.setTitle("Dagon");
@@ -28,4 +31,12 @@ public class Window extends JFrame{
   public void setKeyListener(KeyListener clavier) {
       this.pan.addKeyListener(clavier);
   }
+  
+  public void update() {
+	  this.pan.repaint();
+  }
+public void setPlayer(Player player) {
+	this.pan.setPlayer(player);
+	
+}
 }

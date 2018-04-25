@@ -9,9 +9,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import model.GameObject;
+import model.Player;
  
 public class Map extends JPanel {
   private ArrayList<GameObject> objects = null;
+  private Player player;
   private int posX = 0;
   private int posY = 0;
   private BufferedImage spritesEntities;
@@ -47,28 +49,19 @@ public void paintComponent(Graphics g){
     
     
     //On dessine le hero aux coordonnées souhaitées
-    g.drawImage(hero, posX+centerX, posY+centerY, this.getWidth()/19,this.getHeight()/6, null);
+    g.drawImage(hero, player.getPosX()+centerX, player.getPosY()+centerY, this.getWidth()/19,this.getHeight()/6, null);
     
   }
 
-  public int getPosX() {
-    return posX;
-  }
 
-  public void setPosX(int posX) {
-    this.posX = posX;
-  }
 
-  public int getPosY() {
-    return posY;
-  }
+public void setPlayer(Player player) {
+	this.player = player;
+	
+}
 
-  public void setPosY(int posY) {
-    this.posY = posY;
-  }
-  public void move(int X, int Y) {
-      this.posX = this.posX + X;
-      this.posY = this.posY + Y;
-  }
+  
+  
+  
   
 }
