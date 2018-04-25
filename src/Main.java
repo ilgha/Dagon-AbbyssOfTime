@@ -9,6 +9,7 @@ public class Main {
 		Window fen = new Window();
         Keyboard clav = new Keyboard(fen);
         fen.setKeyListener(clav);
+        System.out.println("");
 
 	}
 
