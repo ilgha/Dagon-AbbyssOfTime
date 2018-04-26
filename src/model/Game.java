@@ -14,7 +14,8 @@ public class Game {
 	public Game(Window window) {
         this.window = window;
         objects.add(new Room(0,0));
-        objects.add(new Door(0,0));
+        objects.add(new Door(0,0,1));
+        
         objects.add(new Player(0,0));
         
         
@@ -24,7 +25,7 @@ public class Game {
 	
 	
 	public void movePlayer(int x, int y) {
-		Player player = (Player) objects.get(2);
+		Player player = (Player) objects.get(objects.size()-1);
 		player.move(x,y);
 		window.update();
 	}
