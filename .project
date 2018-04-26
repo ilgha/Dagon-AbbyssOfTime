@@ -30,5 +30,10 @@
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/binding_of_isaac_rebirth_tiles_Ruins.png</location>
 		</link>
+		<link>
+			<name>src/images/doors.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/doors.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

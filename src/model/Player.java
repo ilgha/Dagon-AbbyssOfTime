@@ -5,13 +5,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Player extends GameObject implements Directable{
+public class Player extends GameObject implements Directable, Image{
 	private BufferedImage heroSprites;
 	private BufferedImage hero;
 	int direction = SOUTH;
 	
 	public Player(int X, int Y) {
-		super(X, Y);
+		super(X, Y, 0);
 		try{
 			this.heroSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
 		}catch (IOException e){

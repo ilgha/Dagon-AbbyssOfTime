@@ -1,13 +1,17 @@
 package model;
 
-public class GameObject {
+import java.awt.image.BufferedImage;
+
+public class GameObject implements Image {
 	protected int posX;
     protected int posY;
+    protected int type;
     
 
-    public GameObject(int X, int Y) {
+    public GameObject(int X, int Y, int type) {
         this.posX = X;
         this.posY = Y;
+        this.type = type;
         
     }
 
@@ -18,5 +22,13 @@ public class GameObject {
     public int getPosY() {
         return this.posY;
     }
+    
+    public int getType() {
+        return this.type;
+    }
 
+	@Override
+	public BufferedImage getImage() {
+		return null;
+	}
 }

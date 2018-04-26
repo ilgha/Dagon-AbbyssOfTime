@@ -3,9 +3,12 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import model.GameObject;
 import model.Player;
 
 public class Window extends JFrame{
@@ -35,8 +38,9 @@ public class Window extends JFrame{
   public void update() {
 	  this.pan.repaint();
   }
-public void setPlayer(Player player) {
-	this.pan.setPlayer(player);
 	
+public void setGameObjects(ArrayList<GameObject> objects) {
+    this.pan.setObjects(objects);
+    this.pan.repaint();
 }
 }
