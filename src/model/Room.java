@@ -7,8 +7,11 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 public class Room extends GameObject implements Image{
-	private ArrayList<Door> doors = new ArrayList<Door>();
 	private BufferedImage floor;
+	private Door doorN;
+	private Door doorS;
+	private Door doorE;
+	private Door doorW;
 	
 	public Room(int x, int y) {
 		super(x,y,2);

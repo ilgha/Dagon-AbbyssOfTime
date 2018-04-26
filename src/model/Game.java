@@ -17,7 +17,7 @@ public class Game {
         objects.add(new Door(0,0,1));
         
         objects.add(new Player(0,0));
-        
+        System.out.println("");
         
         window.setGameObjects(this.objects);
 	}
