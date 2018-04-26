@@ -14,11 +14,7 @@ import model.Player;
 public class Map extends JPanel {
   private ArrayList<GameObject> objects = null;
   private Player player;
-  private int posX = 0;
-  private int posY = 0;
-  private BufferedImage spritesEntities;
   private BufferedImage spritesDoor;
-  private BufferedImage hero;
   private BufferedImage openDoor;
   private BufferedImage floor;
   
@@ -27,8 +23,7 @@ public class Map extends JPanel {
       this.requestFocusInWindow();
       try{
     	  floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));
-    	  spritesEntities = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
-    	  	hero = spritesEntities.getSubimage(89, 4, 54, 82);
+    	  
     	  spritesDoor = ImageIO.read(getClass().getResource("/images/Binding_of_Isaac_Rebirth_dice_room_door.png"));
     	  	openDoor = spritesDoor.getSubimage(125, 9, 49, 33);
 		}
@@ -49,7 +44,7 @@ public void paintComponent(Graphics g){
     
     
     //On dessine le hero aux coordonnées souhaitées
-    g.drawImage(hero, player.getPosX()+centerX, player.getPosY()+centerY, this.getWidth()/19,this.getHeight()/6, null);
+    g.drawImage(player.getImage(), player.getPosX()+centerX, player.getPosY()+centerY, this.getWidth()/19,this.getHeight()/6, null);
     
   }
 
