@@ -13,7 +13,7 @@ public class Door extends GameObject implements Directable, Image{
 	private BufferedImage door;
 	
 	public Door(int x,int y) {
-		super(x,y,4);
+		super(x,y,1);
 		try{
 			this.doorSprites = ImageIO.read(getClass().getResource("/images/doors.png"));
 		}catch (IOException e){
