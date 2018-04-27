@@ -35,7 +35,7 @@ public class Player extends GameObject implements Directable, Image{
 				System.out.println("no Image");
 			}
 			
-			hero = heroSprites.getSubimage(26+this.direction*62, 4, 54, 82);
+		hero = heroSprites.getSubimage(26+this.direction*62, 4, 54, 82);
 
 		
 	}
