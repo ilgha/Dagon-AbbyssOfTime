@@ -7,13 +7,12 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class Door extends GameObject implements Directable, Image{
+public class Door implements Directable, Image{
 	private int Direction;
 	private BufferedImage doorSprites;
 	private BufferedImage door;
 	
-	public Door(int x,int y, int dir) {
-		super(x,y,1);
+	public Door(int dir) {
 		this.Direction = dir;
 		try{
 			this.doorSprites = ImageIO.read(getClass().getResource("/images/doors.png"));
@@ -21,10 +20,11 @@ public class Door extends GameObject implements Directable, Image{
 			System.out.println("no Image");
 		}
 		
-		door = doorSprites.getSubimage(dir*109, 0, 49, 43);
+		door = doorSprites.getSubimage(dir*109+60, 0, 49, 43);
 	}
 	
 	public void OpenDoor() {
+		door = doorSprites.getSubimage(this.Direction*109+60, 0, 49, 43);
 		
 	}
 
