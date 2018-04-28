@@ -53,4 +53,17 @@ public class Window extends JFrame{
 		  this.pan.setFloor(floor);
 		  this.pan.repaint();
 	  }
+	  public int getMapWidth() {
+		  return this.pan.getWidth();
+	  }
+	  public int getMapHeight() {
+		  return this.pan.getHeight();
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 }

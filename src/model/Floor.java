@@ -19,6 +19,7 @@ public class Floor {
 	
 	public void nextRoom() {
 		rooms.add(new Room(0,0));
+		this.size++;
 	}
 	
 	public ArrayList<Room> getRooms(){

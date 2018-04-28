@@ -21,21 +21,31 @@ public class Player extends GameObject implements Directable, Image{
 		hero = heroSprites.getSubimage(26+this.direction*60, 4, 54, 82);
 		
 	}
+	
+	public void setPosX(int x) {
+		this.posX = x;
+	}
+	
+	public void setPosY(int y) {
+		this.posY = y;
+	}
 
 	public void move(int x, int y) {
 		 if(x>0) this.direction = EAST;
 		 if(y<0) this.direction = NORTH;
 		 if(x<0) this.direction = WEST;
 		 if(y>0) this.direction = SOUTH;
+		 
 		 this.posX = this.posX + x;
 	     this.posY = this.posY + y;
+	     
 	     try{
 				this.heroSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
 			}catch (IOException e){
 				System.out.println("no Image");
 			}
 			
-		hero = heroSprites.getSubimage(26+this.direction*62, 4, 54, 82);
+		 hero = heroSprites.getSubimage(26+this.direction*62, 4, 54, 82);
 
 		
 	}
