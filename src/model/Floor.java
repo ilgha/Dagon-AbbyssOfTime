@@ -9,7 +9,7 @@ public class Floor {
 	
 	public Floor(int maxSize) {
 		this.maxSize = maxSize;
-		rooms.add(new Room(0,0));
+		rooms.add(new Room());
 		this.size = 1;
 	}
 	
@@ -18,12 +18,18 @@ public class Floor {
 	}
 	
 	public void nextRoom() {
-		rooms.add(new Room(0,0));
+		rooms.add(new Room());
 		this.size++;
 	}
 	
 	public ArrayList<Room> getRooms(){
 		return this.rooms;
 	}
+
+	public Room currentRoom() {
+		return this.rooms.get(rooms.size()-1);
+	}
+	
+	
 
 }

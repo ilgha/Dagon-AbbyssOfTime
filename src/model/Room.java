@@ -3,20 +3,15 @@ package model;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class Room extends GameObject implements Image{
+public class Room implements Image{
 	private BufferedImage floor;
-	private Door doorN;
-	private Door doorS;
-	private Door doorE;
-	private Door doorW;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	
-	public Room(int x, int y) {
-		super(x,y,2);
-		
+	public Room() {
 		try{
 	    	  floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));   	  	
 			}
@@ -24,8 +19,12 @@ public class Room extends GameObject implements Image{
 				System.out.println("no Image");
 			}
 		
-		for(int i=0; i<3; i++) {
-			doors.add(new Door(i));
+		Random rand = new Random();
+		
+		for(int i=0; i<=rand.nextInt(4); i++) {
+			int direction = rand.nextInt(4);
+			doors.add(new Door(0,0,direction));
+			System.out.println("porte"+direction);
 		}
 		
 	}

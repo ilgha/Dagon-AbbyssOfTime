@@ -30,10 +30,23 @@ public class Game {
 		int DoorY = -window.getMapHeight()/2;
 		int DoorWidth = window.getMapWidth()/10;
 		int deltaX = DoorWidth/2;
-		
+		int nextX = player.getPosX() + x;
+        int nextY = player.getPosY() + y;
+        
 		player.move(x,y);
 		System.out.println("("+player.getPosX()+","+player.getPosY()+")");
 		System.out.println("("+ 0 +","+(DoorY + (playerHeight/2))+")");
+		
+		
+		
+		for (Door door : this.floor.currentRoom().getDoors()) {
+            if (door.isAtPosition(nextX, nextY)) {
+            	this.floor.nextRoom();
+    			player.setPosX(0);
+    			player.setPosY(0);
+    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
+            }
+		
 		
 		if(Math.abs(player.getPosX()) < deltaX + deltaX && player.getPosY() == DoorY + playerHeight/2) {
 			
@@ -46,5 +59,6 @@ public class Game {
 		
 		
 		window.update();
+	}
 	}
 }
