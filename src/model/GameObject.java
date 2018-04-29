@@ -6,14 +6,16 @@ public class GameObject implements Image {
 	protected int posX;
     protected int posY;
     protected int type;
+    protected HitBox hitbox;
+   
 
     
 
-    public GameObject(int X, int Y, int type) {
+    public GameObject(int X, int Y, HitBox hb, int type) {
         this.posX = X;
         this.posY = Y;
+        this.hitbox = hb;
         this.type = type;
-        
     }
 
     public int getPosX() {
@@ -23,13 +25,26 @@ public class GameObject implements Image {
     public int getPosY() {
         return this.posY;
     }
+    public HitBox getHitBox() {
+    	return this.hitbox;
+    }
     
     public int getType() {
         return this.type;
     }
-    
-    public boolean isAtPosition(int x, int y) {
-        return this.posX == x && this.posY == y;
+    public void setPosX(int x) {
+        this.posX = x;
+    }
+
+    public void setPosY(int y) {
+        this.posY = y;
+    }
+    public boolean isAtPosition(GameObject go) {
+    	int deltXmax = Math.abs(this.hitbox.getDeltaX()+go.getHitBox().getDeltaX());
+    	int deltYmax = Math.abs(this.hitbox.getDeltaY()+go.getHitBox().getDeltaY());
+    	int deltCenterX = Math.abs(this.posX-go.getPosX());
+    	int deltCenterY = Math.abs(this.posY-go.getPosY());
+        return deltCenterX <= deltXmax && deltCenterY <= deltYmax;
     }
 	@Override
 	public BufferedImage getImage() {

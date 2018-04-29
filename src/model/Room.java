@@ -11,7 +11,7 @@ public class Room implements Image{
 	private BufferedImage floor;
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	
-	public Room() {
+	public Room(HitBox hb) {
 		try{
 	    	  floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));   	  	
 			}
@@ -23,7 +23,7 @@ public class Room implements Image{
 		
 		for(int i=0; i<=rand.nextInt(4); i++) {
 			int direction = rand.nextInt(4);
-			doors.add(new Door(0,0,direction));
+			doors.add(new Door(0,0,hb,direction));
 			System.out.println("porte"+direction);
 		}
 		

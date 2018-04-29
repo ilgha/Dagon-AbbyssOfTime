@@ -29,27 +29,32 @@ public class Map extends JPanel {
 	public void paintComponent(Graphics g){
 		int centerX = this.getWidth()/2 - this.getWidth()/(19*2);
 		int centerY = this.getHeight()/2 - this.getHeight()/(6*2);
+		int doorWidth = this.getWidth()/100*13;
+		int doorHeight = this.getHeight()/100*21;
 		Room room = floor.currentRoom();
 		ArrayList<Door> doors = room.getDoors();
 		
-		
 		g.drawImage(room.getImage(),0,0,this.getWidth(),this.getHeight(),null); 
-		
+
 		for(Door door : doors) {
 			if(door.getDirection() == 0) {
-				g.drawImage(door.getImage(),this.getWidth()/100*94,this.getHeight()/100*41, this.getWidth()/100*13, this.getHeight()/100*21, null);
+				door.setPosX(this.getWidth()/100*94-this.getWidth()/2+doorWidth/2);
+				door.setPosY(this.getHeight()/100*41-this.getHeight()/2+doorHeight/2);
 			}
 			if(door.getDirection() == 1) {
-				g.drawImage(door.getImage(),this.getWidth()/100*48,this.getHeight()/100*2, this.getWidth()/100*13, this.getHeight()/100*21, null);
+				door.setPosX(this.getWidth()/100*48-this.getWidth()/2+doorWidth/2);
+				door.setPosY(this.getHeight()/100*2-this.getHeight()/2+doorHeight/2);
 			}
 			if(door.getDirection() == 2) {
-				g.drawImage(door.getImage(),this.getWidth()/100*47,this.getHeight()/100*83, this.getWidth()/100*13, this.getHeight()/100*21, null);
+				door.setPosX(this.getWidth()/100*47-this.getWidth()/2+doorWidth/2);
+				door.setPosY(this.getHeight()/100*83-this.getHeight()/2+doorHeight/2);
 			}
 			if(door.getDirection() == 3) {
-				g.drawImage(door.getImage(),this.getWidth()/100*2,this.getHeight()/100*41, this.getWidth()/100*13, this.getHeight()/100*21, null);
+				door.setPosX(this.getWidth()/100*2-this.getWidth()/2+doorWidth/2);
+				door.setPosY(this.getHeight()/100*41-this.getHeight()/2+doorHeight/2);
 			}
+			g.drawImage(door.getImage(),door.getPosX()+this.getWidth()/2-doorWidth/2,door.getPosY()+this.getHeight()/2-doorHeight/2, doorWidth, doorHeight, null);
 		}
-		
 		g.drawImage(player.getImage(),player.getPosX()+centerX, player.getPosY()+centerY, this.getWidth()/100*6,this.getHeight()/100*15, null);
 		
   }

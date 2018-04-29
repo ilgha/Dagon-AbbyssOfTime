@@ -6,10 +6,12 @@ public class Floor {
 	private int size;
 	private int maxSize;
 	private ArrayList<Room> rooms = new ArrayList<Room>();
+	private HitBox hb;
 	
-	public Floor(int maxSize) {
+	public Floor(int maxSize, HitBox hb) {
 		this.maxSize = maxSize;
-		rooms.add(new Room());
+		this.hb = hb;
+		rooms.add(new Room(hb));
 		this.size = 1;
 	}
 	
@@ -18,7 +20,7 @@ public class Floor {
 	}
 	
 	public void nextRoom() {
-		rooms.add(new Room());
+		rooms.add(new Room(this.hb));
 		this.size++;
 	}
 	

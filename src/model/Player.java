@@ -10,8 +10,8 @@ public class Player extends GameObject implements Directable, Image{
 	private BufferedImage hero;
 	int direction = SOUTH;
 	
-	public Player(int X, int Y) {
-		super(X, Y, 0);
+	public Player(int X, int Y, HitBox hb) {
+		super(X, Y, hb, 0);
 		try{
 			this.heroSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
 		}catch (IOException e){
