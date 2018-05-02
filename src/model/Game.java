@@ -14,7 +14,7 @@ public class Game {
 	
 	public Game(Window window) {
         this.window = window;       
-        this.player = new Player(0,0,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
+        this.player = new Player(0,0,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1)); //Dimension de ht à mettre dans player et map redimensionne l'afficharge
         this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
         window.setPlayer(this.player);
         window.setFloor(this.floor);

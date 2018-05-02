@@ -14,4 +14,11 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/images/projectile.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/projectile.png</location>
+		</link>
+	</linkedResources>
 </projectDescription>
