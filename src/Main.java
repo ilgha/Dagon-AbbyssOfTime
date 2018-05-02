@@ -11,7 +11,6 @@ public class Main {
 		Game game = new Game(fen);
         Keyboard clav = new Keyboard(game);
         fen.setKeyListener(clav);
-        System.out.println("balaaaaaa");
 
 	}
 

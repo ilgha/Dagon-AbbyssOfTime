@@ -41,10 +41,6 @@ public class Window extends JFrame{
 		  this.pan.repaint();
 	  }
 	
-	  public void setGameObjects(ArrayList<GameObject> objects) {
-		  this.pan.setObjects(objects);
-		  this.pan.repaint();
-	  }
 	  public void setPlayer(Player player) {
 		  this.pan.setPlayer(player);
 		  this.pan.repaint();
@@ -53,4 +49,17 @@ public class Window extends JFrame{
 		  this.pan.setFloor(floor);
 		  this.pan.repaint();
 	  }
+	  public int getMapWidth() {
+		  return this.pan.getWidth();
+	  }
+	  public int getMapHeight() {
+		  return this.pan.getHeight();
+	  }
+	  
+	  
+	  
+	  
+	  
+	  
+	  
 }

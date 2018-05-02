@@ -25,7 +25,7 @@ public class Keyboard implements KeyListener {
     @Override
 
 	public void keyPressed(KeyEvent e) {
-    	int spd = 8;
+    	int spd = 6;
     	int code = e.getKeyCode();
     	
     	
