@@ -13,12 +13,16 @@ import model.Door;
 import model.Floor;
 import model.GameObject;
 import model.Player;
+import model.Projectil;
 import model.Room;
+import model.Opponent;
  
 public class Map extends JPanel {
   private Player player;
   private Floor floor;
-
+  private ArrayList<GameObject> objects = null;
+  private ArrayList<Opponent> Opponents = null;
+  private ArrayList<Projectil> Projectiles = null;
   
   public Map() {
       this.setFocusable(true);
@@ -64,6 +68,18 @@ public class Map extends JPanel {
 			g.setColor(Color.BLUE);
 			g.drawRect(door.getPosX()-doorCenterX+doorWidth/2, door.getPosY()-doorCenterY+doorHeight/2, door.getHitBox().getDeltaX()*2,door.getHitBox().getDeltaY()*2); //hitbox porte
 		}
+		
+		for(Opponent enemy:Opponents) {
+			g.drawImage(enemy.getImage(),enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
+			g.setColor(Color.BLUE);
+			g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
+	  
+		}
+		
+		
+		
+		
+		
 		g.drawImage(player.getImage(),player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
 		g.setColor(Color.BLUE);
 		g.drawRect(player.getPosX()+playerCenterX+playerWidth/2, player.getPosY()+playerCenterY+playerHeight/2, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
@@ -78,6 +94,19 @@ public class Map extends JPanel {
 	public void setFloor(Floor floor) {
 		this.floor = floor;
 	}
+
+
+
+	public void setProjectiles(ArrayList<Projectil> projectiles) {
+		this.Projectiles=projectiles;
+		
+	}
+	
+	public void setOpponents(ArrayList <Opponent> Opponents ) {
+		this.Opponents=Opponents;
+		
+	}
+
 
   
 }
