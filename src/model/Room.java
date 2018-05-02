@@ -18,11 +18,12 @@ public class Room implements Image{
 			catch (IOException e){
 				System.out.println("no Image");
 			}
+
 		
 		Random rand = new Random();
 		
-		for(int i=0; i<=rand.nextInt(4); i++) {
-			int direction = rand.nextInt(4);
+		for(int i=0; i<=rand.nextInt(3); i++) {
+			int direction = rand.nextInt(3);
 			doors.add(new Door(0,0,hb,direction));
 			System.out.println("porte"+direction);
 		}
