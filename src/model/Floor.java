@@ -8,11 +8,13 @@ public class Floor {
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	private HitBox hb;
 	
-	public Floor(int maxSize, HitBox hb) {
-		this.maxSize = maxSize;
+	public Floor(int size, HitBox hb) {
 		this.hb = hb;
-		rooms.add(new Room(hb));
-		this.size = 1;
+		this.size = size;
+		for(int i=0; i<=size; i++) {
+			rooms.add(new Room(this.hb));
+		}
+		
 	}
 	
 	public void isFullFloor() {

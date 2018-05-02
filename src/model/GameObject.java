@@ -40,7 +40,7 @@ public class GameObject implements Image {
         this.posY = y;
     }
     public boolean isAtPosition(GameObject go) {
-    	int deltXmax = Math.abs(this.hitbox.getDeltaX()+go.getHitBox().getDeltaX());
+    	int deltXmax = Math.abs(this.hitbox.getDeltaX()+go.getHitBox().getDeltaX());  //retourne si la distance entre les deux centre <= les dimensions des deux hitbox
     	int deltYmax = Math.abs(this.hitbox.getDeltaY()+go.getHitBox().getDeltaY());
     	int deltCenterX = Math.abs(this.posX-go.getPosX());
     	int deltCenterY = Math.abs(this.posY-go.getPosY());

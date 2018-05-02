@@ -21,7 +21,7 @@ public class Door extends GameObject implements Directable, Image{
 			System.out.println("no Image");
 		}
 		
-		door = doorSprites.getSubimage(dir*111, 0, 57, 49);
+		door = doorSprites.getSubimage(dir*107, 0, 57, 49);
 	}
 	
 	public void OpenDoor() {

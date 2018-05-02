@@ -27,19 +27,33 @@ public class Game {
         int nextY = player.getPosY() + y;
         
 		player.move(x,y);
-		System.out.println("("+player.getPosX()+","+player.getPosY()+")");
-		System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
+		//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
+		//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
 
 		
 		
 		
 		for (Door door : this.floor.currentRoom().getDoors()) {
-			System.out.println("("+door.getPosX()+","+door.getPosY()+")");
-			System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
+			//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
+			//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
             if (door.isAtPosition(this.player)) {
             	this.floor.nextRoom();
-    			player.setPosX(0);
-    			player.setPosY(0);
+            	if(door.getDirection() == 0) {
+	    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
+	    			player.setPosY(door.getPosY());
+            	}
+            	if(door.getDirection() == 1) {
+	    			player.setPosX(door.getPosX());
+	    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
+            	}
+            	if(door.getDirection() == 2) {
+	    			player.setPosX(door.getPosX());
+	    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
+            	}
+            	if(door.getDirection() == 3) {
+	    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
+	    			player.setPosY(door.getPosY());
+            	}
     			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
             }
 		
