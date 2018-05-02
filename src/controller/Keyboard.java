@@ -9,7 +9,7 @@ import model.Game;
 public class Keyboard implements KeyListener {
 	
     private Game game;
-    private static boolean[] pressed = new boolean[128]; //liste qui determine si une touche est pressée
+    private static boolean[] pressed = new boolean[128]; //liste qui determine si une touche est pressï¿½e
     
 
     public Keyboard(Game game) {
@@ -46,6 +46,8 @@ public class Keyboard implements KeyListener {
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_D)) {
     		game.movePlayer(spd, 0);
+    	} if (Keyboard.isPressed(KeyEvent.VK_P)) {
+    		game.shoot();
     	}
     	
      }
