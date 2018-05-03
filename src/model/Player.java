@@ -8,7 +8,7 @@ import javax.imageio.ImageIO;
 public class Player extends GameObject implements Directable, Image{
 	private BufferedImage heroSprites;
 	private BufferedImage hero;
-	int direction = SOUTH;
+	private int direction = SOUTH;
 	
 	public Player(int X, int Y, HitBox hb) {
 		super(X, Y, hb, 0);
