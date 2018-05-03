@@ -28,7 +28,7 @@ public class Game implements KillableObserver {
         
 		for(int i=0;i<3;i++) {
 			
-		 Opponent enemy=new Opponent((int)(window.getMapHeight()/2*Math.random()*100),(int)(window.getMapWidth()/2*Math.random()*100),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
+		 Opponent enemy=new Opponent((int)(Math.random()*100*-1),(int)Math.random()*100*-1,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
 		 enemy.attachKillableObserver(this);
 		 enemys.add(enemy);
 		 
