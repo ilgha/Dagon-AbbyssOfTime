@@ -11,6 +11,8 @@ import javax.swing.JPanel;
 import model.Floor;
 import model.GameObject;
 import model.Player;
+import model.Projectil;
+import model.Opponent;
 
 public class Window extends JFrame{
 	  private Map pan = new Map();
@@ -55,6 +57,16 @@ public class Window extends JFrame{
 	  public int getMapHeight() {
 		  return this.pan.getHeight();
 	  }
+
+	public void setProjectiles(ArrayList<Projectil> projectiles) {
+		this.pan.setProjectiles(projectiles);
+		
+	}
+	
+	public void setOpponents(ArrayList<Opponent> Opponents) {
+		this.pan.setOpponents(Opponents);
+		
+	}
 	  
 	  
 	  

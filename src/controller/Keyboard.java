@@ -46,6 +46,8 @@ public class Keyboard implements KeyListener {
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_D)) {
     		game.movePlayer(spd, 0);
+    	} if (Keyboard.isPressed(KeyEvent.VK_P)) {
+    		game.shoot();
     	}
     	
      }
