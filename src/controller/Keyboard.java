@@ -35,13 +35,13 @@ public class Keyboard implements KeyListener {
     	if (Keyboard.isPressed(KeyEvent.VK_SPACE)) {
     		spd *= 15;
     	}
-    	if (Keyboard.isPressed(KeyEvent.VK_W)) {
+    	if (Keyboard.isPressed(KeyEvent.VK_Z)) {
     		game.movePlayer(0, -spd);
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_S)) {
     		game.movePlayer(0, spd);
     	}
-    	if (Keyboard.isPressed(KeyEvent.VK_A)) {
+    	if (Keyboard.isPressed(KeyEvent.VK_Q)) {
     		game.movePlayer(-spd, 0);
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_D)) {
