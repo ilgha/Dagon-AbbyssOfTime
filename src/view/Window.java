@@ -10,9 +10,6 @@ import javax.swing.JPanel;
 
 import model.Floor;
 import model.GameObject;
-import model.Player;
-import model.Projectil;
-import model.Opponent;
 
 public class Window extends JFrame{
 	  private Map pan = new Map();
@@ -31,10 +28,6 @@ public class Window extends JFrame{
 	    this.setVisible(true);    
 	  }
 	  
-	  public void movePlayer(int x, int y) {
-		  this.pan.move(x, y);
-		  pan.repaint();
-	  }
 	  public void setKeyListener(KeyListener clavier) {
 	      this.pan.addKeyListener(clavier);
 	  }
@@ -42,11 +35,12 @@ public class Window extends JFrame{
 	  public void update() {
 		  this.pan.repaint();
 	  }
-	
-	  public void setPlayer(Player player) {
-		  this.pan.setPlayer(player);
-		  this.pan.repaint();
+	  
+	  public void setObjects(ArrayList<GameObject> objects) {
+		  this.pan.setObjects(objects);
+		  update();
 	  }
+	
 	  public void setFloor(Floor floor) {
 		  this.pan.setFloor(floor);
 		  this.pan.repaint();
@@ -58,20 +52,5 @@ public class Window extends JFrame{
 		  return this.pan.getHeight();
 	  }
 
-	public void setProjectiles(ArrayList<Projectil> projectiles) {
-		this.pan.setProjectiles(projectiles);
-		
-	}
-	
-	public void setOpponents(ArrayList<Opponent> Opponents) {
-		this.pan.setOpponents(Opponents);
-		
-	}
-	  
-	  
-	  
-	  
-	  
-	  
-	  
+
 }

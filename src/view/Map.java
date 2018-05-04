@@ -18,11 +18,8 @@ import model.Room;
 import model.Opponent;
  
 public class Map extends JPanel {
-  private Player player;
   private Floor floor;
   private ArrayList<GameObject> objects = null;
-  private ArrayList<Opponent> Opponents = null;
-  private ArrayList<Projectil> Projectiles = null;
   
   public Map() {
       this.setFocusable(true);
@@ -68,50 +65,39 @@ public class Map extends JPanel {
 			g.setColor(Color.BLUE);
 			g.drawRect(door.getPosX()-doorCenterX+doorWidth/2, door.getPosY()-doorCenterY+doorHeight/2, door.getHitBox().getDeltaX()*2,door.getHitBox().getDeltaY()*2); //hitbox porte
 		}
-		
-		for(Opponent enemy:Opponents) {
-			g.drawImage(enemy.getImage(),enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
-			g.setColor(Color.BLUE);
-			//g.drawOval(enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getHeight()/100*10, this.getHeight()/100*10); champs de vision de l'ennemi
-			g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
-	  
+		for(GameObject obj : objects) {
+			if(obj instanceof Opponent) {
+				Opponent enemy = (Opponent) obj;
+				g.drawImage(enemy.getImage(),enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
+				g.setColor(Color.BLUE);
+				//g.drawOval(enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getHeight()/100*10, this.getHeight()/100*10); champs de vision de l'ennemi
+				g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
+		  
+			}
+			if(obj instanceof Projectil) {
+				Projectil proj = (Projectil) obj;
+				g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
+		  
+			}
+			if(obj instanceof Player) {
+				Player player = (Player) obj;
+				g.drawImage(player.getImage(),player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
+			}			
 		}
-		//for(Projectil proj : Projectiles) {
-			//g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
-			//g.setColor(Color.BLUE);
-			//g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
-	  
-		//}
-		
-		
-		
-		g.drawImage(player.getImage(),player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
-		g.setColor(Color.BLUE);
-		g.drawRect(player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
-  }
-
-
-	public void setPlayer(Player player) {
-		this.player = player;
-		
-	}
+   }
 	
+	public void setObjects(ArrayList<GameObject> objects) {
+		this.objects = objects;
+	}
+
+
 	public void setFloor(Floor floor) {
 		this.floor = floor;
 	}
-
-
-
-	public void setProjectiles(ArrayList<Projectil> projectiles) {
-		this.Projectiles=projectiles;
-		
-	}
-	
-	public void setOpponents(ArrayList <Opponent> Opponents ) {
-		this.Opponents=Opponents;
-		
-	}
-
 
   
 }

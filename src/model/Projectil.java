@@ -6,11 +6,11 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Projectil extends GameObject implements Activable,Directable,Image {
-boolean OnTarget=false;
-int direction;
-int target;
-private BufferedImage projectil;
-private BufferedImage projectilSprites;
+	boolean OnTarget=false;
+	int direction;
+	int target;
+	private BufferedImage projectil;
+	private BufferedImage projectilSprites;
 
 
 	

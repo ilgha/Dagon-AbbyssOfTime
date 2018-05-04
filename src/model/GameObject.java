@@ -2,11 +2,12 @@ package model;
 
 import java.awt.image.BufferedImage;
 
-public class GameObject implements Image {
+public class GameObject implements Image, Killable {
 	protected int posX;
     protected int posY;
     protected int type;
     protected HitBox hitbox;
+    private KillableObserver Ko;
    
 
     
@@ -49,5 +50,16 @@ public class GameObject implements Image {
 	@Override
 	public BufferedImage getImage() {
 		return null;
+	}
+
+	public void attachKillableObserver(KillableObserver Ko) {
+		this.Ko=Ko;
+		
+	}
+
+
+	public void notifyKillableObserver() {
+		Ko.kill(this);
+		
 	}
 }

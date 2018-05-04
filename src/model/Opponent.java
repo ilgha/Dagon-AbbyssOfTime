@@ -7,7 +7,6 @@ import javax.imageio.ImageIO;
 
 public class Opponent extends GameObject implements Killable, Activable, Directable,Image {
 	
-	private KillableObserver Ko;
 	private int lifePoints=2;
 	private BufferedImage enemy;
 	private BufferedImage enemySprites;
@@ -56,16 +55,7 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 	}
 
 
-	public void attachKillableObserver(KillableObserver Ko) {
-		this.Ko=Ko;
-		
-	}
 
-
-	public void notifyKillableObserver() {
-		Ko.kill(this);
-		
-	}
 
 	
 	public void activate() {

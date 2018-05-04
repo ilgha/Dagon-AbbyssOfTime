@@ -13,75 +13,71 @@ public class Game implements KillableObserver {
 	private Window window;
 	private Player player;
 	private Floor floor;
-	private ArrayList<Projectil> Projectiles = new ArrayList<Projectil>();
-	private ArrayList<Opponent> enemys = new ArrayList<Opponent>();
+	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	
 	public Game(Window window)  {
-        this.window = window;       
-        this.player = new Player(0,0);
+        this.window = window; 
+        Player player = new Player(0,0);
+        this.player = player;
+        this.objects.add(player);
         this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
-        window.setPlayer(this.player);
+        for(int i=0;i<3;i++) {
+			
+   		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
+   		 enemy.attachKillableObserver(this);
+   		 this.objects.add(enemy);
+   		 
+   		
+   		}
+        window.setObjects(this.objects);
         window.setFloor(this.floor);
         
-		
-        
-		for(int i=0;i<3;i++) {
-			
-		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
-		 enemy.attachKillableObserver(this);
-		 enemys.add(enemy);
-		 
-		
-		}
-		  window.setOpponents(this.enemys);
-		  
-		  Thread t1 = new Thread(new ThreadEnemys(100,this));
-			t1.start();
-			System.out.println("thread start");
-		  
-		
-	        
+        Thread t1 = new Thread(new ThreadEnemys(100,this));
+		t1.start();
+		System.out.println("thread start");
+		     
 	}
 	
 	
 	
-	public void movePlayer(int x, int y) {		
-		int nextX = player.getPosX() + x;
-        int nextY = player.getPosY() + y;
-        
-		player.move(x,y);
-		//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
-		//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
-
-		
-		
-		
-		for (Door door : this.floor.currentRoom().getDoors()) {
-			//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
-			//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
-            if (door.isAtPosition(this.player)) {
-            	this.floor.nextRoom();
-            	if(door.getDirection() == 0) {
-	    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
-	    			player.setPosY(door.getPosY());
-            	}
-            	if(door.getDirection() == 1) {
-	    			player.setPosX(door.getPosX());
-	    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
-            	}
-            	if(door.getDirection() == 2) {
-	    			player.setPosX(door.getPosX());
-	    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
-            	}
-            	if(door.getDirection() == 3) {
-	    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
-	    			player.setPosY(door.getPosY());
-            	}
-    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
-            }
-		
-		window.update();
+	public void movePlayer(int x, int y) {	
+		for(GameObject obj : objects) {
+			if(obj instanceof Player) {
+		        Player player = (Player)obj;
+				player.move(x,y);
+				//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
+				//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
+			
+				for (Door door : this.floor.currentRoom().getDoors()) {
+					//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
+					//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
+		            if (door.isAtPosition(player)) {
+		            	this.floor.nextRoom();
+		            	if(door.getDirection() == 0) {
+			    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
+			    			player.setPosY(door.getPosY());
+		            	}
+		            	if(door.getDirection() == 1) {
+			    			player.setPosX(door.getPosX());
+			    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
+		            	}
+		            	if(door.getDirection() == 2) {
+			    			player.setPosX(door.getPosX());
+			    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
+		            	}
+		            	if(door.getDirection() == 3) {
+			    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
+			    			player.setPosY(door.getPosY());
+		            	}
+		    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
+		            }
+				
+				window.update();
+				}
+				
+			}
 		}
+		
 	}
 
 
@@ -91,10 +87,10 @@ public class Game implements KillableObserver {
 		
 		//calcul du target;
 		
-		for(int i=0;i<enemys.size();i++) {
+		for(GameObject obj : objects) {
 			
-			Opponent o = enemys.get(i);
-			
+			if(obj instanceof Opponent) {
+			Opponent o = (Opponent)obj;
 			int diffX = player.getPosX()-o.getPosX();
 			int diffY = player.getPosY()-o.getPosY();
 			if (diffX==0 && diffY==0) {
@@ -109,66 +105,69 @@ public class Game implements KillableObserver {
 				o.move(x,y,3);
 			}
 			
-}
-		window.update();
-		
-		
-	}
-
-
-
-	public synchronized void shoot() {
-		
-        
-		if(this.projectilesEmpty()) {
-			
-			Thread t2 = new Thread(new ThreadProj(100,this));
-			t2.start();
-			System.out.println("thread start");
-			
-		}
-		Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(), new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
-		Projectiles.add(p);
-		window.setProjectiles(this.Projectiles);
-		
-		System.out.println(Projectiles.size());
-
-	}
-	
-
-
-
-	public synchronized void moveProjectil() {
-		
-		for(int j=0;j<Projectiles.size();j++) {
-			Projectil p =Projectiles.get(j);
-			
-			for(int i=0;i<enemys.size();i++) {
-				Opponent o = enemys.get(i);
-				
-				if(distanceInBetween(p,o)<5 ) {
-					o.activate();
-					p.activate();
-		
-		}
-			
-		}
-		
-		if(p.isOnTarget()) {
-			Projectiles.remove(p);
-		} else {
-			
-		}	
-		p.move(1);
-		}
-		
 			window.update();
-			
+			}
+		}
+		
 	}
+
+
+
+		public synchronized void shoot() {
+			
+			
+			   if(this.projectilesEmpty()) {
+				   Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
+				   p.attachKillableObserver(this);
+				   objects.add(p);
+				   window.setObjects(this.objects);
+					
+				   System.out.println("in");
+				 
+				   Thread t2 = new Thread(new ThreadProj(100,this));
+				   t2.start();
+				
+			   } else {
+				   Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
+				   objects.add(p);
+				   window.setObjects(this.objects);
+			   
+			   }
+		}
+
+
+
+		public void moveProjectil() {
+			
+			for(GameObject obj1:objects) {
+				if(obj1 instanceof Projectil) {
+					Projectil p = (Projectil) obj1;
+					for(GameObject obj2:objects) {
+						if(obj2 instanceof Opponent) {
+							
+							Opponent o = (Opponent) obj2;
+							if(p.isAtPosition(o)) {
+								
+								o.activate();
+								p.activate();
+							
+							}
+						}
+						
+					}
+					p.move(10);
+				}
+						
+			}
+		}
 
 	
 	public void kill(Killable K) {
-		enemys.remove(K);		
+		
+		objects.remove(K);	
+		
+		objects.remove(K);
+		
 	}
 	
 	//distance 
@@ -183,20 +182,18 @@ public class Game implements KillableObserver {
 //Boolean functions pour arreter les threads quand pas besoin
 	
 	public boolean projectilesEmpty() {
-		if (Projectiles.size()==0) {
-		return true;
-		} else {
-			return false;
+		int i = 0;
+		for(GameObject obj:objects) {
+			if(obj instanceof Projectil) i++;
 		}
+		return (i==0);
 	}
 		
-		public boolean enemysEmpty() {
-			if (enemys.size()==0) {
-				return true;
-				} else {
-					return false;
-				}
-				
-			
+	public boolean enemysEmpty() {
+		int i = 0;
+		for(GameObject obj:objects) {
+			if(obj instanceof Opponent) i++;
 		}
+		return (i==0);
+	}
 }
