@@ -23,7 +23,6 @@ public class Game implements KillableObserver {
         window.setPlayer(this.player);
         window.setFloor(this.floor);
         
-        
 		
         
 		for(int i=0;i<3;i++) {
@@ -38,7 +37,7 @@ public class Game implements KillableObserver {
 		  
 		  Thread t1 = new Thread(new ThreadEnemys(100,this));
 			t1.start();
-			System.out.println("thrad start");
+			System.out.println("thread start");
 		  
 		
 	        
@@ -120,24 +119,22 @@ public class Game implements KillableObserver {
 
 	public synchronized void shoot() {
 		
-           if(this.projectilesEmpty()) {
+        
+		if(this.projectilesEmpty()) {
 			
-			Thread t2 = new Thread();
+			Thread t2 = new Thread(new ThreadProj(100,this));
 			t2.start();
+			System.out.println("thread start");
 			
 		}
-		
-		Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(), null);
+		Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(), new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
 		Projectiles.add(p);
 		window.setProjectiles(this.Projectiles);
 		
 		System.out.println(Projectiles.size());
-		
-		
-		
-		
-		
+
 	}
+	
 
 
 

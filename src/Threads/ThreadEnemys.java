@@ -18,7 +18,6 @@ public class ThreadEnemys implements Runnable {
 			
 		while(!game.enemysEmpty()){
 			
-		System.out.println("on");
 		game.moveEnemy();
 		
 		

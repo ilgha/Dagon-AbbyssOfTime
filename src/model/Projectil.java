@@ -19,12 +19,15 @@ private BufferedImage projectilSprites;
 		this.direction=direction;
 		
 		try{
-			this.projectilSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
+			this.projectilSprites = ImageIO.read(getClass().getResource("/images/projectile.png"));
 		}catch (IOException e){
 			System.out.println("no Image");
 		}
-		
-		projectil = projectilSprites.getSubimage(26+this.direction*60, 4, 54, 82);
+		if(this.direction == 0 || this.direction == 3) {
+			projectil = projectilSprites.getSubimage(8, 3, 13, 6);
+		}else {
+			projectil = projectilSprites.getSubimage(0, 0, 6, 13);
+		}
 	}
 	
 	public void move(int s) {

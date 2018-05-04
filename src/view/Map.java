@@ -75,8 +75,12 @@ public class Map extends JPanel {
 			g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
 	  
 		}
-		
-		
+		for(Projectil proj : Projectiles) {
+			g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
+			g.setColor(Color.BLUE);
+			g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
+	  
+		}
 		
 		
 		
