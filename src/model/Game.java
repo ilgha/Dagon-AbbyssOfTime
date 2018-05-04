@@ -18,7 +18,7 @@ public class Game implements KillableObserver {
 	
 	public Game(Window window)  {
         this.window = window;       
-        this.player = new Player(0,0,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1)); //Dimension de ht à mettre dans player et map redimensionne l'afficharge
+        this.player = new Player(0,0);
         this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
         window.setPlayer(this.player);
         window.setFloor(this.floor);
@@ -95,19 +95,19 @@ public class Game implements KillableObserver {
 			
 			Opponent o = enemys.get(i);
 			
-		int diffX = player.getPosX()-o.getPosX();
-		int diffY = player.getPosY()-o.getPosY();
+			int diffX = player.getPosX()-o.getPosX();
+			int diffY = player.getPosY()-o.getPosY();
 			if (diffX==0 && diffY==0) {
-					o.attack(); 
-			}else {
-		float angle = (float) Math.atan2(diffY, diffX);
-
-		float x = (float) Math.cos(angle);
-		float y = (float) Math.sin(angle);
+				o.attack(); 
+			}else if((diffX^2+diffY^2)<this.window.getMapHeight()/100*10) {
+				float angle = (float) Math.atan2(diffY, diffX);
 		
-		
-		o.move(x,y,3);
-}
+				float x = (float) Math.cos(angle);
+				float y = (float) Math.sin(angle);
+				
+				
+				o.move(x,y,3);
+			}
 			
 }
 		window.update();

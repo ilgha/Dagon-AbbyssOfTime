@@ -72,21 +72,22 @@ public class Map extends JPanel {
 		for(Opponent enemy:Opponents) {
 			g.drawImage(enemy.getImage(),enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
 			g.setColor(Color.BLUE);
+			//g.drawOval(enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getHeight()/100*10, this.getHeight()/100*10); champs de vision de l'ennemi
 			g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
 	  
 		}
-		for(Projectil proj : Projectiles) {
-			g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
-			g.setColor(Color.BLUE);
-			g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
+		//for(Projectil proj : Projectiles) {
+			//g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
+			//g.setColor(Color.BLUE);
+			//g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
 	  
-		}
+		//}
 		
 		
 		
 		g.drawImage(player.getImage(),player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
 		g.setColor(Color.BLUE);
-		g.drawRect(player.getPosX()+playerCenterX+playerWidth/2, player.getPosY()+playerCenterY+playerHeight/2, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
+		g.drawRect(player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
   }
 
 

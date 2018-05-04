@@ -27,7 +27,7 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 
 	public void move(float x, float y,int speed) {
 		
-		if(x>0) this.direction = EAST;
+		 if(x>0) this.direction = EAST;
 		 if(y<0) this.direction = NORTH;
 		 if(x<0) this.direction = WEST;
 		 if(y>0) this.direction = SOUTH;
