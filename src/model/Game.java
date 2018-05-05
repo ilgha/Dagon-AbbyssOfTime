@@ -17,7 +17,11 @@ public class Game implements KillableObserver {
 	
 	public Game(Window window)  {
         this.window = window; 
-        Player player = new Player(0,0);
+        int playerWidth = this.window.getMapWidth()/100*6;
+		int playerHeight = this.window.getMapHeight()/100*15;
+		int playerCenterX = this.window.getMapWidth()/2 - playerWidth/2;
+		int playerCenterY = this.window.getMapHeight()/2 - playerHeight/2;
+        Player player = new Player(playerCenterX,playerCenterY);
         this.player = player;
         this.objects.add(player);
         this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
@@ -44,35 +48,40 @@ public class Game implements KillableObserver {
 		for(GameObject obj : objects) {
 			if(obj instanceof Player) {
 		        Player player = (Player)obj;
-				player.move(x,y);
-				//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
-				//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
-			
-				for (Door door : this.floor.currentRoom().getDoors()) {
-					//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
-					//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
-		            if (door.isAtPosition(player)) {
-		            	this.floor.nextRoom();
-		            	if(door.getDirection() == 0) {
-			    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
-			    			player.setPosY(door.getPosY());
-		            	}
-		            	if(door.getDirection() == 1) {
-			    			player.setPosX(door.getPosX());
-			    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
-		            	}
-		            	if(door.getDirection() == 2) {
-			    			player.setPosX(door.getPosX());
-			    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
-		            	}
-		            	if(door.getDirection() == 3) {
-			    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
-			    			player.setPosY(door.getPosY());
-		            	}
-		    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
-		            }
+		        if(hitWall(player)) {
+		        	player.move(1, 1);
+		        }else {
+		        	player.move(x,y);
+					//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
+					//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
 				
-				window.update();
+					for (Door door : this.floor.currentRoom().getDoors()) {
+						//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
+						//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
+			            if (door.isAtPosition(player)) {
+			            	this.floor.nextRoom();
+			            	if(door.getDirection() == 0) {
+				    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
+				    			player.setPosY(door.getPosY());
+			            	}
+			            	if(door.getDirection() == 1) {
+				    			player.setPosX(door.getPosX());
+				    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
+			            	}
+			            	if(door.getDirection() == 2) {
+				    			player.setPosX(door.getPosX());
+				    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
+			            	}
+			            	if(door.getDirection() == 3) {
+				    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
+				    			player.setPosY(door.getPosY());
+			            	}
+			    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
+			            }
+					
+					window.update();
+					}
+				
 				}
 				
 			}
@@ -116,7 +125,7 @@ public class Game implements KillableObserver {
 		public synchronized void shoot() {
 			
 			
-			   if(this.projectilesEmpty()) {
+			   //if(this.projectilesEmpty()) {
 				   Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
 				   p.attachKillableObserver(this);
 				   objects.add(p);
@@ -127,12 +136,13 @@ public class Game implements KillableObserver {
 				   Thread t2 = new Thread(new ThreadProj(100,this));
 				   t2.start();
 				
-			   } else {
-				   Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
-				   objects.add(p);
-				   window.setObjects(this.objects);
+			   //} else {
+				   //Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
+				   //objects.add(p);
+				   //window.setObjects(this.objects);
+
 			   
-			   }
+			   //}
 		}
 
 
@@ -148,7 +158,7 @@ public class Game implements KillableObserver {
 							Opponent o = (Opponent) obj2;
 							if(p.isAtPosition(o)) {
 								
-								o.activate();
+								o.activate(p.getDamage());
 								p.activate();
 							
 							}
@@ -156,6 +166,10 @@ public class Game implements KillableObserver {
 						
 					}
 					p.move(10);
+					if(hitWall(p)) {
+						p.activate();
+					}
+					
 				}
 						
 			}
@@ -177,6 +191,10 @@ public class Game implements KillableObserver {
 		d=(float) Math.sqrt((g1.getPosX()-g2.getPosX())^2+(g1.getPosY()-g2.getPosY())^2);
 		return d;
 		
+	}
+	
+	public boolean hitWall(GameObject obj) {
+		return obj.getPosX() < this.window.getMapWidth()/100*10 || obj.getPosX() > this.window.getMapWidth()/100*90 || obj.getPosY() < this.window.getMapWidth()/100*10 || obj.getPosX() > this.window.getMapWidth()/100*80;
 	}
 	
 //Boolean functions pour arreter les threads quand pas besoin

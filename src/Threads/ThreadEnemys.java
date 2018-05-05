@@ -16,13 +16,13 @@ public class ThreadEnemys implements Runnable {
 		public void run(){
 		try{
 			
-		while(!game.enemysEmpty()){
+			while(!game.enemysEmpty()){
+				
+				game.moveEnemy();
 			
-		game.moveEnemy();
-		
-		
-		Thread.sleep(waitTime); 
-		}
+			
+				Thread.sleep(waitTime); 
+			}
 		}catch(Exception e){};
 		}
 

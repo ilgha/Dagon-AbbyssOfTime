@@ -55,12 +55,10 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 	}
 
 
-
-
 	
-	public void activate() {
-		lifePoints--;
-		if (lifePoints==1) {
+	public void activate(int dmg) {
+		this.lifePoints-=dmg;
+		if (lifePoints==0) {
 			this.notifyKillableObserver();
 		} 
 		
@@ -74,6 +72,12 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 	
 	public BufferedImage getImage() {
 		return this.enemy;
+	}
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		
 	}
 }
 	

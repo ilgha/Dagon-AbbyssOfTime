@@ -83,9 +83,9 @@ public class Map extends JPanel {
 			}
 			if(obj instanceof Player) {
 				Player player = (Player) obj;
-				g.drawImage(player.getImage(),player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
+				g.drawImage(player.getImage(),player.getPosX(), player.getPosY(), this.getWidth()/100*6,this.getHeight()/100*15, null);
 				g.setColor(Color.BLUE);
-				g.drawRect(player.getPosX()+playerCenterX, player.getPosY()+playerCenterY, player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
+				g.drawRect(player.getPosX(), player.getPosY(), player.getHitBox().getDeltaX()*2,player.getHitBox().getDeltaY()*2); //hitbox du player
 			}			
 		}
    }
