@@ -16,9 +16,9 @@ public class ThreadProj implements Runnable {
 		try{
 			while(!game.projectilesEmpty()){
 				
-		    System.out.println("on");
+		    
 			game.moveProjectil();
-			
+			System.out.println("on");
 			
 			
 			Thread.sleep(waitTime); 

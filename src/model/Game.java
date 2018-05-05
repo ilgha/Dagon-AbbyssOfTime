@@ -27,7 +27,7 @@ public class Game implements KillableObserver {
         this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
         for(int i=0;i<3;i++) {
 			
-   		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
+   		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)+playerCenterX),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)+playerCenterY),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
    		 enemy.attachKillableObserver(this);
    		 this.objects.add(enemy);
    		 
@@ -92,7 +92,7 @@ public class Game implements KillableObserver {
 
 
 
-	public void moveEnemy() {
+	public synchronized void moveEnemy() {
 		
 		//calcul du target;
 		
@@ -104,7 +104,7 @@ public class Game implements KillableObserver {
 			int diffY = player.getPosY()-o.getPosY();
 			if (diffX==0 && diffY==0) {
 				o.attack(); 
-			}else if((diffX^2+diffY^2)<this.window.getMapHeight()/100*10) {
+			}else{
 				float angle = (float) Math.atan2(diffY, diffX);
 		
 				float x = (float) Math.cos(angle);
@@ -124,30 +124,21 @@ public class Game implements KillableObserver {
 
 		public synchronized void shoot() {
 			
-			
-			   //if(this.projectilesEmpty()) {
-				   Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
-				   p.attachKillableObserver(this);
-				   objects.add(p);
-				   window.setObjects(this.objects);
+			Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );   
+			p.attachKillableObserver(this);
+			objects.add(p);
+			window.setObjects(this.objects);
 					
-				   System.out.println("in");
+			System.out.println("in");
 				 
-				   Thread t2 = new Thread(new ThreadProj(100,this));
-				   t2.start();
-				
-			   //} else {
-				   //Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );
-				   //objects.add(p);
-				   //window.setObjects(this.objects);
-
-			   
-			   //}
+	        Thread t2 = new Thread(new ThreadProj(100,this));
+			t2.start();
+			window.update();
 		}
 
 
 
-		public void moveProjectil() {
+		public synchronized void moveProjectil() {
 			
 			for(GameObject obj1:objects) {
 				if(obj1 instanceof Projectil) {
@@ -169,6 +160,7 @@ public class Game implements KillableObserver {
 					if(hitWall(p)) {
 						p.activate();
 					}
+					window.update();
 					
 				}
 						

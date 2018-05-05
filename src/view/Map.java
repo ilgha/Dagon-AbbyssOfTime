@@ -68,17 +68,17 @@ public class Map extends JPanel {
 		for(GameObject obj : objects) {
 			if(obj instanceof Opponent) {
 				Opponent enemy = (Opponent) obj;
-				g.drawImage(enemy.getImage(),enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getWidth()/100*6,this.getHeight()/100*15, null);
+				g.drawImage(enemy.getImage(),enemy.getPosX(), enemy.getPosY(), this.getWidth()/100*6,this.getHeight()/100*15, null);
 				g.setColor(Color.BLUE);
 				//g.drawOval(enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY, this.getHeight()/100*10, this.getHeight()/100*10); champs de vision de l'ennemi
-				g.drawRect(enemy.getPosX()+playerCenterX+playerWidth/2, enemy.getPosY()+playerCenterY+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
+				g.drawRect(enemy.getPosX()+playerWidth/2, enemy.getPosY()+playerHeight/2, enemy.getHitBox().getDeltaX()*2,enemy.getHitBox().getDeltaY()*2); //hitbox du player
 		  
 			}
 			if(obj instanceof Projectil) {
 				Projectil proj = (Projectil) obj;
-				g.drawImage(proj.getImage(),proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
+				g.drawImage(proj.getImage(),proj.getPosX()+playerWidth/2, proj.getPosY()+playerHeight/2, this.getWidth()/100*1,this.getHeight()/100*1, null);
 				g.setColor(Color.BLUE);
-				g.drawRect(proj.getPosX()+playerCenterX+playerWidth/2, proj.getPosY()+playerCenterY+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
+				g.drawRect(proj.getPosX()+playerWidth/2, proj.getPosY()+playerHeight/2, proj.getHitBox().getDeltaX()*2,proj.getHitBox().getDeltaY()*2); //hitbox du player
 		  
 			}
 			if(obj instanceof Player) {
