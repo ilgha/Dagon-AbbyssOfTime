@@ -25,7 +25,7 @@ public class Keyboard implements KeyListener {
     @Override
 
 	public void keyPressed(KeyEvent e) {
-    	int spd = 1;
+    	int spd = 5;
     	int code = e.getKeyCode();
     	
     	
@@ -33,7 +33,7 @@ public class Keyboard implements KeyListener {
     		pressed[code] = true;
             }
     	if (Keyboard.isPressed(KeyEvent.VK_SPACE)) {
-    		spd *= 15;
+    		spd *= 5;
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_Z)) {
     		game.movePlayer(0, -spd);
@@ -46,8 +46,18 @@ public class Keyboard implements KeyListener {
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_D)) {
     		game.movePlayer(spd, 0);
-    	} if (Keyboard.isPressed(KeyEvent.VK_P)) {
-    		game.shoot();
+    	} 
+    	if (Keyboard.isPressed(KeyEvent.VK_LEFT)) {
+    		game.shoot(0);
+    	}
+    	if (Keyboard.isPressed(KeyEvent.VK_DOWN)) {
+    		game.shoot(1);
+    	}
+    	if (Keyboard.isPressed(KeyEvent.VK_UP)) {
+    		game.shoot(2);
+    	}
+    	if (Keyboard.isPressed(KeyEvent.VK_RIGHT)) {
+    		game.shoot(3);
     	}
     	
      }

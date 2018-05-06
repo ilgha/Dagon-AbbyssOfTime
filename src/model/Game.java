@@ -12,7 +12,7 @@ import model.GameObject;
 public class Game implements KillableObserver {
 	private Window window;
 	private Player player;
-	private Floor floor;
+	private Floor1 floor1;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 	
 	public Game(Window window)  {
@@ -21,20 +21,23 @@ public class Game implements KillableObserver {
 		int playerHeight = this.window.getMapHeight()/100*15;
 		int playerCenterX = this.window.getMapWidth()/2 - playerWidth/2;
 		int playerCenterY = this.window.getMapHeight()/2 - playerHeight/2;
-        Player player = new Player(playerCenterX,playerCenterY);
+		HitBox hb = new HitBox(window.getMapHeight()/100*2,window.getMapWidth()/100*3);
+		
+		
+        Player player = new Player(playerCenterX,playerCenterY,hb);
         this.player = player;
         this.objects.add(player);
-        this.floor = new Floor(5,new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
-        for(int i=0;i<3;i++) {
+        this.floor1 = new Floor1(new HitBox(window.getMapHeight()/100*3,window.getMapWidth()/100*1));
+        for(int i=0;i<0;i++) {
 			
-   		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)+playerCenterX),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)+playerCenterY),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1));
+   		 Opponent enemy=new Opponent((int)((window.getMapHeight()/100*Math.random()*20)*Math.pow(-1, i)+playerCenterX),(int)((window.getMapWidth()/100*Math.random()*20)*Math.pow(-1, i+1)+playerCenterY),hb);
    		 enemy.attachKillableObserver(this);
    		 this.objects.add(enemy);
    		 
    		
    		}
         window.setObjects(this.objects);
-        window.setFloor(this.floor);
+        window.setFloor(this.floor1);
         
         Thread t1 = new Thread(new ThreadEnemys(100,this));
 		t1.start();
@@ -47,48 +50,45 @@ public class Game implements KillableObserver {
 	public void movePlayer(int x, int y) {	
 		for(GameObject obj : objects) {
 			if(obj instanceof Player) {
-		        Player player = (Player)obj;
-		        if(hitWall(player)) {
-		        	player.move(1, 1);
-		        }else {
+				Player player = (Player)obj;
+			
+				if(hitWall(player,x,y)) {
+					player.move(0,0);
+				}else {
 		        	player.move(x,y);
-					//System.out.println("("+player.getPosX()+","+player.getPosY()+")");
-					//System.out.println("("+player.getHitBox().getDeltaX()+","+player.getHitBox().getDeltaY()+")\n");
-				
-					for (Door door : this.floor.currentRoom().getDoors()) {
-						//System.out.println("("+door.getPosX()+","+door.getPosY()+")");
-						//System.out.println("("+door.getHitBox().getDeltaX()+","+door.getHitBox().getDeltaY()+")\n");
-			            if (door.isAtPosition(player)) {
-			            	this.floor.nextRoom();
-			            	if(door.getDirection() == 0) {
-				    			player.setPosX(door.getPosX()-player.getHitBox().getDeltaX()*10);
-				    			player.setPosY(door.getPosY());
-			            	}
-			            	if(door.getDirection() == 1) {
-				    			player.setPosX(door.getPosX());
-				    			player.setPosY(door.getPosY()+player.getHitBox().getDeltaY()*10);
-			            	}
-			            	if(door.getDirection() == 2) {
-				    			player.setPosX(door.getPosX());
-				    			player.setPosY(door.getPosY()-player.getHitBox().getDeltaY()*10);
-			            	}
-			            	if(door.getDirection() == 3) {
-				    			player.setPosX(door.getPosX()+player.getHitBox().getDeltaX()*10);
-				    			player.setPosY(door.getPosY());
-			            	}
-			    			System.out.println("Nombre de salles: " + this.floor.getRooms().size());
-			            }
+
+		        	for(Room room : this.floor1.getRooms()) {
+						for (Door door : room.getDoors()) {
+				            if (door.isAtPosition(player)) {
+				            	this.floor1.nextRoom(room, door);
+				            	if(door.getDirection() == 0) {
+					    			player.setPosX(window.getMapWidth()-door.getPosX()+player.getHitBox().getDeltaX()*10);
+					    			player.setPosY(door.getPosY());
+				            	}
+				            	if(door.getDirection() == 1) {
+					    			player.setPosX(door.getPosX());
+					    			player.setPosY(window.getMapHeight()-door.getPosY()-player.getHitBox().getDeltaX()*15);
+				            	}
+				            	if(door.getDirection() == 2) {
+					    			player.setPosX(door.getPosX());
+					    			player.setPosY(window.getMapHeight()-door.getPosY()+player.getHitBox().getDeltaX());
+				            	}
+				            	if(door.getDirection() == 3) {
+					    			player.setPosX(window.getMapWidth()-door.getPosX()-player.getHitBox().getDeltaX()*10);
+					    			player.setPosY(door.getPosY());
+				            	}
+				    			System.out.println("salles: " + ((this.floor1.getRooms().indexOf(this.floor1.getCurrentRoom()))+1));
+				            }
+						}
 					
 					window.update();
+					
 					}
-				
 				}
-				
+		
 			}
 		}
-		
 	}
-
 
 
 
@@ -122,9 +122,9 @@ public class Game implements KillableObserver {
 
 
 
-		public synchronized void shoot() {
+		public synchronized void shoot(int dir) {
 			
-			Projectil p=new Projectil(player.getPosX(), player.getPosY(), player.getDirection(),new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );   
+			Projectil p=new Projectil(player.getPosX(), player.getPosY(), dir,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );   
 			p.attachKillableObserver(this);
 			objects.add(p);
 			window.setObjects(this.objects);
@@ -185,8 +185,11 @@ public class Game implements KillableObserver {
 		
 	}
 	
+	public boolean hitWall(GameObject obj,int x,int y) {
+		return obj.getPosX()+x < this.window.getMapWidth()/100*6 || obj.getPosX()+x > this.window.getMapWidth()/100*94 || obj.getPosY()+y < this.window.getMapHeight()/100*10 || obj.getPosY()+y > this.window.getMapHeight()/100*80;
+	}
 	public boolean hitWall(GameObject obj) {
-		return obj.getPosX() < this.window.getMapWidth()/100*10 || obj.getPosX() > this.window.getMapWidth()/100*90 || obj.getPosY() < this.window.getMapWidth()/100*10 || obj.getPosX() > this.window.getMapWidth()/100*80;
+		return obj.getPosX() < this.window.getMapWidth()/100*6 || obj.getPosX() > this.window.getMapWidth()/100*94 || obj.getPosY() < this.window.getMapHeight()/100*10 || obj.getPosY() > this.window.getMapHeight()/100*80;
 	}
 	
 //Boolean functions pour arreter les threads quand pas besoin

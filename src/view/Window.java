@@ -2,18 +2,24 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 
-import model.Floor;
+import model.Floor1;
 import model.GameObject;
 
 public class Window extends JFrame{
 	  private Map pan = new Map();
-	  private JPanel container = new JPanel();
+	  private Inventaire inv = new Inventaire();
+	  private JProgressBar healthBar;
+	  private JPanel panelGame = new JPanel(new BorderLayout());
+	  private JPanel panelHub = new JPanel(new BorderLayout());
+	  private JPanel panelBar = new JPanel(new GridLayout(1,0));
 	
 	  
 	  public Window(){
@@ -21,11 +27,20 @@ public class Window extends JFrame{
 	    this.setSize(980, 565);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    container.setBackground(Color.white);
-	    container.setLayout(new BorderLayout());
-	    container.add(pan, BorderLayout.CENTER);
-	    this.setContentPane(container);
-	    this.setVisible(true);    
+	    panelGame.setBackground(Color.white);
+	    panelGame.add(pan);
+	    healthBar = new JProgressBar();
+		healthBar.setStringPainted(true);
+		healthBar.setString("29" + "/" + "30");
+		healthBar.setBackground(Color.BLACK);
+		healthBar.setForeground(Color.RED);
+		panelBar.add(healthBar);
+		panelHub.add(panelBar, BorderLayout.CENTER);
+	    this.getContentPane().add(panelGame, BorderLayout.CENTER);
+	    this.getContentPane().add(panelHub, BorderLayout.WEST);
+	    this.setContentPane(panelGame);
+	    this.setVisible(true);
+  
 	  }
 	  
 	  public void setKeyListener(KeyListener clavier) {
@@ -41,8 +56,8 @@ public class Window extends JFrame{
 		  update();
 	  }
 	
-	  public void setFloor(Floor floor) {
-		  this.pan.setFloor(floor);
+	  public void setFloor(Floor1 floor1) {
+		  this.pan.setFloor(floor1);
 		  this.pan.repaint();
 	  }
 	  public int getMapWidth() {

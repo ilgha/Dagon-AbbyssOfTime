@@ -9,9 +9,8 @@ public class Player extends GameObject implements Directable, Image{
 	private BufferedImage heroSprites;
 	private BufferedImage hero;
 	private int direction = SOUTH;
-	private static HitBox hb = new HitBox(21,43);
 	
-	public Player(int X, int Y) {
+	public Player(int X, int Y, HitBox hb) {
 		super(X, Y, hb, 0);
 		try{
 			this.heroSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));

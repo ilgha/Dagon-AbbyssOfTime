@@ -12,7 +12,9 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 	private BufferedImage enemySprites;
 	private int direction=SOUTH;
 
-	public Opponent(int X, int Y,HitBox hb) {
+
+	public Opponent(int X, int Y, HitBox hb) {
+		
 		super(X, Y,hb,1);
 		try{
 			this.enemySprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
@@ -58,6 +60,7 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 	
 	public void activate(int dmg) {
 		this.lifePoints-=dmg;
+		
 		if (lifePoints==0) {
 			this.notifyKillableObserver();
 		} 
