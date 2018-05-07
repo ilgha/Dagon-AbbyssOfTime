@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Floor1 {
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	private HitBox hb;
-	private int curentRoom = 5; 
+	private int curentRoom = 0; 
 	
 	public Floor1(HitBox hb) {
 		this.hb = hb;

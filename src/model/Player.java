@@ -49,6 +49,7 @@ public class Player extends GameObject implements Directable, Image{
 
 		
 	}
+	
 
 	@Override
 	public int getDirection() {
