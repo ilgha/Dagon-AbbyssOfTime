@@ -124,7 +124,7 @@ public class Game implements KillableObserver {
 
 		public synchronized void shoot(int dir) {
 			
-			Projectil p=new Projectil(player.getPosX(), player.getPosY(), dir,new HitBox(window.getMapHeight()/110*1,window.getMapWidth()/110*1) );   
+			Projectil p=new Projectil(player.getPosX(), player.getPosY(), dir,new HitBox(window.getMapWidth()/160*1, window.getMapHeight()/200*1) );   
 			p.attachKillableObserver(this);
 			objects.add(p);
 			window.setObjects(this.objects);
