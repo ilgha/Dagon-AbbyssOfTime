@@ -60,9 +60,8 @@ public class Game implements KillableObserver {
 		        	for(Room room : this.floor1.getRooms()) {
 						for (Door door : room.getDoors()) {
 				            if (door.isAtPosition(player)) {
-				            	this.floor1.nextRoom(room, door);
 				            	if(door.getDirection() == 0) {
-					    			player.setPosX(window.getMapWidth()-door.getPosX()+player.getHitBox().getDeltaX()*10);
+					    			player.setPosX(window.getMapWidth()-door.getPosX()+player.getHitBox().getDeltaX());
 					    			player.setPosY(door.getPosY());
 				            	}
 				            	if(door.getDirection() == 1) {
@@ -74,10 +73,11 @@ public class Game implements KillableObserver {
 					    			player.setPosY(window.getMapHeight()-door.getPosY()+player.getHitBox().getDeltaX());
 				            	}
 				            	if(door.getDirection() == 3) {
-					    			player.setPosX(window.getMapWidth()-door.getPosX()-player.getHitBox().getDeltaX()*10);
+					    			player.setPosX(window.getMapWidth()-door.getPosX()-player.getHitBox().getDeltaX()*12);
 					    			player.setPosY(door.getPosY());
 				            	}
-				    			System.out.println("salles: " + ((this.floor1.getRooms().indexOf(this.floor1.getCurrentRoom()))+1));
+				            	this.floor1.nextRoom(room, door);
+				    			System.out.println("salle " + ((this.floor1.getRooms().indexOf(this.floor1.getCurrentRoom()))+1));
 				            }
 						}
 					

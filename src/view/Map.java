@@ -58,7 +58,7 @@ public class Map extends JPanel {
 				door.setPosY(this.getHeight()/100*83);
 			}
 			if(door.getDirection() == 3) {
-				door.setPosX(this.getWidth()/100*2);
+				door.setPosX(this.getWidth()/100*4);
 				door.setPosY(this.getHeight()/100*41);
 			}
 			g.drawImage(door.getImage(),door.getPosX(),door.getPosY(), doorWidth, doorHeight, null);
