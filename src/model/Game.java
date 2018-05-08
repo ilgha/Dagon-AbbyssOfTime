@@ -109,9 +109,14 @@ public class Game implements KillableObserver {
 		
 				float x = (float) Math.cos(angle);
 				float y = (float) Math.sin(angle);
+				float d = distanceInBetween(o,this.player);
+				System.out.println(d+ "/"+this.window.getMapHeight()/200*1);
+				System.out.println(this.player.getPosX());
+				System.out.println(o.getPosX());
 				
-				
-				o.move(x,y,3);
+				if(d <= this.window.getMapHeight()/100*5) {
+					o.move(x,y,3);
+				}
 			}
 			
 			window.update();
@@ -148,7 +153,6 @@ public class Game implements KillableObserver {
 							
 							Opponent o = (Opponent) obj2;
 							if(p.isAtPosition(o)) {
-								
 								o.activate(p.getDamage());
 								p.activate();
 							
@@ -167,7 +171,19 @@ public class Game implements KillableObserver {
 			}
 		}
 
-	
+	public void shortAttack() {
+		this.player.shortAttack();
+		for(GameObject obj:objects) {
+			if(obj instanceof Opponent) {
+				Opponent o = (Opponent) obj;
+				//if(player.isAtPosition(o-o.getHitBox().getDeltaX() && o-o.getHitBox().getDeltaY() )) {
+
+				
+				//}
+			}
+		}
+	}
+		
 	public void kill(Killable K) {
 		
 		objects.remove(K);	

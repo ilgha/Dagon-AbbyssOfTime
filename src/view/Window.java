@@ -27,6 +27,7 @@ public class Window extends JFrame{
 	    this.setSize(980, 565);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
+	    //this.setResizable(true);
 	    panelGame.setBackground(Color.white);
 	    panelGame.add(pan);
 	    healthBar = new JProgressBar();
@@ -35,10 +36,9 @@ public class Window extends JFrame{
 		healthBar.setBackground(Color.BLACK);
 		healthBar.setForeground(Color.RED);
 		panelBar.add(healthBar);
-		panelHub.add(panelBar, BorderLayout.CENTER);
+		panelHub.add(panelBar, BorderLayout.WEST);
 	    this.getContentPane().add(panelGame, BorderLayout.CENTER);
 	    this.getContentPane().add(panelHub, BorderLayout.WEST);
-	    this.setContentPane(panelGame);
 	    this.setVisible(true);
   
 	  }

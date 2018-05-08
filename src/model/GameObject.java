@@ -8,9 +8,7 @@ public class GameObject implements Image, Killable {
     protected int type;
     protected HitBox hitbox;
     private KillableObserver Ko;
-   
 
-    
 
     public GameObject(int X, int Y, HitBox hb, int type) {
         this.posX = X;

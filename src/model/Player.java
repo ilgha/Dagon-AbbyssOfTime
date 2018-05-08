@@ -50,6 +50,10 @@ public class Player extends GameObject implements Directable, Image{
 		
 	}
 	
+	public void shortAttack() {
+		hero = heroSprites.getSubimage(this.direction*76, 106, 76, 82);
+	}
+	
 
 	@Override
 	public int getDirection() {

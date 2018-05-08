@@ -59,6 +59,9 @@ public class Keyboard implements KeyListener {
     	if (Keyboard.isPressed(KeyEvent.VK_RIGHT)) {
     		game.shoot(3);
     	}
+    	if (Keyboard.isPressed(KeyEvent.VK_SPACE)) {
+    		game.shortAttack();
+    	}
     	
      }
 
