@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Projectil extends GameObject implements Activable,Directable,Damage,Image {
+public class Projectil extends GameObject implements Directable,Damage {
 	boolean OnTarget=false;
 	int direction;
 	int target;
@@ -55,7 +55,7 @@ public class Projectil extends GameObject implements Activable,Directable,Damage
     }
 
 	@Override
-	public void activate() {
+	public void activate(int i) {
 		OnTarget=true;
 		this.notifyKillableObserver();
 		
@@ -78,10 +78,12 @@ public class Projectil extends GameObject implements Activable,Directable,Damage
 	}
 
 	@Override
-	public void activate(int dmg) {
-		// TODO Auto-generated method stub
+	public void activate() {
+		OnTarget=true;
+		this.notifyKillableObserver();
 		
 	}
+
 
 	
 	

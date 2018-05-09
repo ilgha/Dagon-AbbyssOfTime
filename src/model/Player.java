@@ -5,10 +5,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Player extends GameObject implements Directable, Image{
+public class Player extends GameObject implements Directable{
 	private BufferedImage heroSprites;
 	private BufferedImage hero;
 	private int direction = SOUTH;
+	private int life = 10;
+	private int Keys=0;
 	
 	public Player(int X, int Y, HitBox hb) {
 		super(X, Y, hb, 0);
@@ -28,6 +30,10 @@ public class Player extends GameObject implements Directable, Image{
 	
 	public void setPosY(int y) {
 		this.posY = y;
+	}
+	
+	public void setHitBox(HitBox hb) {
+		this.hitbox = hb;
 	}
 
 	public void move(int x, int y) {
@@ -54,6 +60,18 @@ public class Player extends GameObject implements Directable, Image{
 		hero = heroSprites.getSubimage(this.direction*76, 106, 76, 82);
 	}
 	
+	public void pickUpKey() {
+		this.Keys+=1;
+	}
+	
+	public boolean useKey() {
+		if (Keys==0) {
+			return false;
+		}else {
+			this.Keys-=1;
+			return true;
+		}
+	}
 
 	@Override
 	public int getDirection() {
@@ -63,4 +81,17 @@ public class Player extends GameObject implements Directable, Image{
 	public BufferedImage getImage() {
 		return this.hero;
 	}
+
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void activate(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

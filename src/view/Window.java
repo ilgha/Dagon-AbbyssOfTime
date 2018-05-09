@@ -2,7 +2,9 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
@@ -16,10 +18,7 @@ import model.GameObject;
 public class Window extends JFrame{
 	  private Map pan = new Map();
 	  private Inventaire inv = new Inventaire();
-	  private JProgressBar healthBar;
-	  private JPanel panelGame = new JPanel(new BorderLayout());
-	  private JPanel panelHub = new JPanel(new BorderLayout());
-	  private JPanel panelBar = new JPanel(new GridLayout(1,0));
+	  Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 	
 	  
 	  public Window(){
@@ -27,18 +26,13 @@ public class Window extends JFrame{
 	    this.setSize(980, 565);
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    this.setLocationRelativeTo(null);
-	    //this.setResizable(true);
-	    panelGame.setBackground(Color.white);
-	    panelGame.add(pan);
-	    healthBar = new JProgressBar();
-		healthBar.setStringPainted(true);
-		healthBar.setString("29" + "/" + "30");
-		healthBar.setBackground(Color.BLACK);
-		healthBar.setForeground(Color.RED);
-		panelBar.add(healthBar);
-		panelHub.add(panelBar, BorderLayout.WEST);
-	    this.getContentPane().add(panelGame, BorderLayout.CENTER);
-	    this.getContentPane().add(panelHub, BorderLayout.WEST);
+	    //this.inv.setPreferredSize(new Dimension(screenSize.width/100*7,screenSize.height));
+        //this.pan.setPreferredSize(new Dimension(4*screenSize.width/100*90,screenSize.height));
+	    this.setLayout(new BorderLayout());
+
+	    this.getContentPane().add(pan, BorderLayout.CENTER);
+	    //this.getContentPane().add(inv, BorderLayout.WEST);
+
 	    this.setVisible(true);
   
 	  }

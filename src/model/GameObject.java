@@ -2,7 +2,7 @@ package model;
 
 import java.awt.image.BufferedImage;
 
-public class GameObject implements Image, Killable {
+public abstract class GameObject implements Killable {
 	protected int posX;
     protected int posY;
     protected int type;
@@ -16,6 +16,12 @@ public class GameObject implements Image, Killable {
         this.hitbox = hb;
         this.type = type;
     }
+    
+    public abstract void activate();
+    public abstract void activate(int i);
+    
+    public abstract BufferedImage getImage(); 
+
 
     public int getPosX() {
         return this.posX;
@@ -45,10 +51,7 @@ public class GameObject implements Image, Killable {
     	int deltCenterY = Math.abs(this.posY-go.getPosY());
         return deltCenterX <= deltXmax && deltCenterY <= deltYmax;
     }
-	@Override
-	public BufferedImage getImage() {
-		return null;
-	}
+
 
 	public void attachKillableObserver(KillableObserver Ko) {
 		this.Ko=Ko;

@@ -5,12 +5,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Opponent extends GameObject implements Killable, Activable, Directable,Image {
+public class Opponent extends GameObject implements Killable, Directable{
 	
 	private int lifePoints=2;
 	private BufferedImage enemy;
 	private BufferedImage enemySprites;
 	private int direction=SOUTH;
+	private boolean Key = false;
 
 
 	public Opponent(int X, int Y, HitBox hb) {
@@ -56,12 +57,19 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 		
 	}
 
-
+	public void setKey() {
+		Key=true;
+	}
+	
+	public boolean hasKey() {
+		
+		return Key;
+	}
 	
 	public void activate(int dmg) {
 		this.lifePoints-=dmg;
 		
-		if (lifePoints==0) {
+		if (lifePoints<=0) {
 			this.notifyKillableObserver();
 		} 
 		
@@ -82,6 +90,7 @@ public class Opponent extends GameObject implements Killable, Activable, Directa
 		// TODO Auto-generated method stub
 		
 	}
+
 }
 	
 	

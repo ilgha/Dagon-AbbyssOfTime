@@ -25,7 +25,7 @@ public class Keyboard implements KeyListener {
     @Override
 
 	public void keyPressed(KeyEvent e) {
-    	int spd = 5;
+    	int spd = 6;
     	int code = e.getKeyCode();
     	
     	
@@ -61,6 +61,9 @@ public class Keyboard implements KeyListener {
     	}
     	if (Keyboard.isPressed(KeyEvent.VK_SPACE)) {
     		game.shortAttack();
+    	}
+    	if (Keyboard.isPressed(KeyEvent.VK_E)) {
+    		game.throwDinamaite();
     	}
     	
      }

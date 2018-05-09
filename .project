@@ -16,6 +16,16 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>src/Images/Bombe.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/Bombe.png</location>
+		</link>
+		<link>
+			<name>src/Images/Key.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/Key.png</location>
+		</link>
+		<link>
 			<name>src/Images/clé_sprite.png</name>
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/clé_sprite.png</location>

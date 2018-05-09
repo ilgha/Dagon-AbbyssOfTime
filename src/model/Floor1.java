@@ -5,42 +5,42 @@ import java.util.ArrayList;
 public class Floor1 {
 	private ArrayList<Room> rooms = new ArrayList<Room>();
 	private HitBox hb;
-	private int curentRoom = 5; 
+	private int curentRoom = 0; 
 	
 	public Floor1(HitBox hb) {
 		this.hb = hb;
 		
 		ArrayList<Door> drset1 = new ArrayList<Door>();
-		drset1.add(new Door(0));
-		drset1.add(new Door(1));
+		drset1.add(new Door(0,2));
+		drset1.add(new Door(1,1));
 		Room r1 = new Room(this.hb,drset1);
 		rooms.add(r1);
 		
 		ArrayList<Door> drset2 = new ArrayList<Door>();
-		drset2.add(new Door(2));
+		drset2.add(new Door(2,1));
 		Room r2 = new Room(this.hb,drset2);
 		rooms.add(r2);
 		
 		ArrayList<Door> drset3 = new ArrayList<Door>();
-		drset3.add(new Door(0));
-		drset3.add(new Door(2));
-		drset3.add(new Door(3));
+		drset3.add(new Door(0,1));
+		drset3.add(new Door(2,1));
+		drset3.add(new Door(3,1));
 		Room r3 = new Room(this.hb,drset3);
 		rooms.add(r3);
 		
 		ArrayList<Door> drset4 = new ArrayList<Door>();
-		drset4.add(new Door(3));
+		drset4.add(new Door(3,1));
 		Room r4 = new Room(this.hb,drset4);
 		rooms.add(r4);
 		
 		ArrayList<Door> drset5 = new ArrayList<Door>();
-		drset5.add(new Door(0));
-		drset5.add(new Door(1));
+		drset5.add(new Door(0,1));
+		drset5.add(new Door(1,1));
 		Room r5 = new Room(this.hb,drset5);
 		rooms.add(r5);
 		
 		ArrayList<Door> drset6 = new ArrayList<Door>();
-		drset6.add(new Door(3));
+		drset6.add(new Door(3,1));
 		Room r6 = new Room(this.hb,drset6);
 		rooms.add(r6);
 		
