@@ -27,16 +27,17 @@ public class Opponent extends GameObject implements Killable, Directable {
 	}
 
 	public void move(float x, float y, int speed) {
-
-		if (x > 0)
-			this.direction = EAST;
-		if (y < 0)
-			this.direction = NORTH;
-		if (x < 0)
-			this.direction = WEST;
-		if (y > 0)
+		
+		if (y > 0 && y>Math.abs(x))
 			this.direction = SOUTH;
-
+		if (x > 0 && x>Math.abs(y))
+			this.direction = EAST;
+		if (y < 0 && Math.abs(y)> Math.abs(x))
+			this.direction = NORTH;
+		if (x < 0 && Math.abs(y) < Math.abs(x))
+			this.direction = WEST;
+		
+		System.out.println(this.direction);
 		this.posX = this.posX + (int) (x * speed);
 		this.posY = this.posY + (int) (y * speed);
 
@@ -89,4 +90,3 @@ public class Opponent extends GameObject implements Killable, Directable {
 	}
 
 }
-	

@@ -76,11 +76,6 @@ public class Player extends GameObject implements Directable {
 		}
 	}
 
-	public void getHit(int dmg) {
-		if (this.life > 0) {
-			this.life -= dmg;
-		}
-	}
 
 	@Override
 	public int getDirection() {
@@ -94,7 +89,7 @@ public class Player extends GameObject implements Directable {
 	public int getNumberOfKey() {
 		return this.Keys;
 	}
-	
+
 	public int getLife() {
 		return this.life;
 	}
@@ -106,8 +101,10 @@ public class Player extends GameObject implements Directable {
 	}
 
 	@Override
-	public void activate(int i) {
-		// TODO Auto-generated method stub
+	public void activate(int dmg) {
+		if (this.life > 0) {
+			this.life -= dmg;
+		}
 
 	}
 

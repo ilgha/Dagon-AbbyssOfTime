@@ -7,20 +7,18 @@ import java.util.Random;
 
 import javax.imageio.ImageIO;
 
-public class Room implements Image{
+public class Room implements Image {
 	private BufferedImage floor;
 	private ArrayList<Door> doors = new ArrayList<Door>();
-	
+
 	public Room(HitBox hb, ArrayList<Door> doors) {
-		try{
-	    	  floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));   	  	
-			}
-			catch (IOException e){
-				System.out.println("no Image");
-			}
+		try {
+			floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));
+		} catch (IOException e) {
+			System.out.println("no Image");
+		}
 		this.doors = doors;
 
-		
 	}
 
 	@Override
@@ -28,7 +26,7 @@ public class Room implements Image{
 		return this.floor;
 	}
 
-	public ArrayList<Door> getDoors(){
+	public ArrayList<Door> getDoors() {
 		return this.doors;
 	}
 

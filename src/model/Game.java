@@ -13,6 +13,7 @@ public class Game implements KillableObserver {
 	private Window window;
 	private Player player;
 	private Floor1 floor1;
+	private int delta;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	public Game(Window window) {
@@ -21,6 +22,7 @@ public class Game implements KillableObserver {
 		int playerHeight = this.window.getMapHeight() / 100 * 15;
 		int playerCenterX = this.window.getMapWidth() / 2 - playerWidth / 2;
 		int playerCenterY = this.window.getMapHeight() / 2 - playerHeight / 2;
+		this.delta = this.window.getMapWidth() / 100 * 3;
 		HitBox hb = new HitBox(window.getMapHeight() / 100 * 2, window.getMapWidth() / 100 * 3);
 
 		Player player = new Player(playerCenterX, playerCenterY, hb);
@@ -145,7 +147,16 @@ public class Game implements KillableObserver {
 				int diffX = player.getPosX() - o.getPosX();
 				int diffY = player.getPosY() - o.getPosY();
 				if (o.isAtPosition(this.player)) {
-					attack(o.getDmg());
+					this.player.activate(o.getDmg());
+					if(this.player.getLife() == 0) this.gameOver();
+					if (o.getDirection() == 0)
+						this.movePlayer(-this.delta, 0);
+					if (o.getDirection() == 1)
+						this.movePlayer(0, this.delta);
+					if (o.getDirection() == 2)
+						this.movePlayer(0, -this.delta);
+					if (o.getDirection() == 3)
+						this.movePlayer(this.delta, 0);
 				} else {
 					float angle = (float) Math.atan2(diffY, diffX);
 
@@ -163,6 +174,8 @@ public class Game implements KillableObserver {
 		}
 
 	}
+
+
 
 	public synchronized void shoot(int dir) {
 
@@ -317,10 +330,6 @@ public class Game implements KillableObserver {
 
 	}
 
-	public void attack(int dmg) {
-		this.player.getHit(dmg);
-	}
-
 	public float distanceInBetween(GameObject g1, GameObject g2) {
 		float d;
 		d = (float) Math
@@ -370,5 +379,18 @@ public class Game implements KillableObserver {
 				i++;
 		}
 		return (i == 0);
+	}
+
+	public int getMapWidth() {
+		return this.window.getMapWidth();
+	}
+
+	public int getMapHeight() {
+		return this.window.getMapHeight();
+	}
+	
+	private void gameOver() {
+		this.window.gameOver();
+		
 	}
 }

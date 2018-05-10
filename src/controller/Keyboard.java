@@ -9,11 +9,15 @@ import model.Game;
 public class Keyboard implements KeyListener {
 	
     private Game game;
+    private int mapWidth; 
+    private int mapHeight; 
     private static boolean[] pressed = new boolean[128]; //liste qui determine si une touche est press�e
     
 
     public Keyboard(Game game) {
         this.game = game;
+        this.mapWidth  = this.game.getMapWidth();
+        this.mapHeight = this.game.getMapHeight();
     }
     
     
@@ -25,7 +29,7 @@ public class Keyboard implements KeyListener {
     @Override
 
 	public void keyPressed(KeyEvent e) {
-    	int spd = 6;
+    	int spd = this.mapWidth/100*1;
     	int code = e.getKeyCode();
     	
     	

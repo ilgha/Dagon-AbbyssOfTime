@@ -20,13 +20,14 @@ import model.Player;
 public class Window extends JFrame {
 	private Map pan = new Map();
 	private Inventaire inv = new Inventaire();
+	private GameOver go = new GameOver();
 
 	public Window() {
 		this.setTitle("Dagon");
 		this.setSize(980, 565);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-	    
+
 		this.inv.setPreferredSize(new Dimension(this.getWidth() / 100 * 15, this.getHeight()));
 		this.pan.setPreferredSize(new Dimension(this.getWidth() / 100 * 85, this.getHeight()));
 
@@ -57,6 +58,7 @@ public class Window extends JFrame {
 		this.pan.setFloor(floor1);
 		this.pan.repaint();
 	}
+
 	public void setPlayer(Player player) {
 		this.inv.setPlayer(player);
 		this.inv.repaint();
@@ -68,6 +70,13 @@ public class Window extends JFrame {
 
 	public int getMapHeight() {
 		return this.pan.getHeight();
+	}
+
+	public void gameOver() {
+		this.getContentPane().remove(this.pan);
+		this.getContentPane().add(this.go, BorderLayout.CENTER);
+		this.setVisible(true);
+		
 	}
 
 }
