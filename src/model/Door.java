@@ -56,7 +56,7 @@ public class Door extends GameObject implements Directable {
 	}
 
 	public void open() {
-		this.door = doorSprites.getSubimage(72 + this.Direction * 107, 60, 57, 49);
+		this.door = doorSprites.getSubimage(54 + this.Direction * 107, 0, 57, 49);
 	}
 
 	@Override

@@ -31,6 +31,7 @@ public class Map extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
+		
 		int playerWidth = this.getWidth() / 100 * 6;
 		int playerHeight = this.getHeight() / 100 * 15;
 		int playerCenterX = this.getWidth() / 2 - playerWidth / 2;
@@ -48,7 +49,7 @@ public class Map extends JPanel {
 
 		for (Door door : doors) {
 			if (door.getDirection() == 0) {
-				door.setPosX(this.getWidth() / 100 * 94);
+				door.setPosX(this.getWidth() / 100 * 91);
 				door.setPosY(this.getHeight() / 100 * 41);
 			}
 			if (door.getDirection() == 1) {
@@ -63,6 +64,7 @@ public class Map extends JPanel {
 				door.setPosX(this.getWidth() / 100 * 4);
 				door.setPosY(this.getHeight() / 100 * 41);
 			}
+			
 			g.drawImage(door.getImage(), door.getPosX(), door.getPosY(), doorWidth, doorHeight, null);
 			g.setColor(Color.BLUE);
 			g.drawRect(door.getPosX() + doorWidth / 4, door.getPosY() + doorHeight / 3,

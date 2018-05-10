@@ -14,6 +14,7 @@ import model.Player;
 
 public class Inventaire extends JPanel {
 	BufferedImage key;
+	BufferedImage DinamiteSprites;
 	BufferedImage bomb;
 	Player player;
 	LifeBar lb;
@@ -26,16 +27,16 @@ public class Inventaire extends JPanel {
 		}
 
 		try {
-			this.bomb = ImageIO.read(getClass().getResource("/images/Bombe.png"));
+			this.DinamiteSprites = ImageIO.read(getClass().getResource("/images/Bombe.png"));
 		} catch (IOException e) {
 			System.out.println("no Image");
 		}
+		this.bomb = DinamiteSprites.getSubimage(0, 0, 25, 20);
 
 		g.setColor(Color.black);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
 		this.lb = new LifeBar(this.player);
-		System.out.println(this.player.getLife());
 		g.drawImage(this.lb.getLife(), this.getHeight() / 100 * 3, this.getHeight() / 100 * 10,
 				this.getWidth() / 100 * 50, this.getHeight() / 100 * 60, null);
 
@@ -46,12 +47,12 @@ public class Inventaire extends JPanel {
 		g.setColor(Color.white);
 		g.drawString(" x " + this.player.getNumberOfKey(), this.getWidth() / 100 * 32, this.getHeight() / 100 * 80);
 
-		// g.drawImage(bomb, 0, this.getHeight() / 100 * 80, this.getWidth() / 100 * 50,
-		// this.getHeight() / 100 * 10, null);
+		g.drawImage(bomb, 0, this.getHeight() / 100 * 85, this.getWidth() / 100 * 50,
+		this.getHeight() / 100 * 10, null);
 
 		g.setFont(font);
 		g.setColor(Color.white);
-		g.drawString(" x " + this.player.getNumberOfKey(), this.getWidth() / 100 * 32, this.getHeight() / 100 * 80);
+		g.drawString(" x " + this.player.getNumberOfKey(), this.getWidth() / 100 * 32, this.getHeight() / 100 * 92);
 	}
 
 	public void setPlayer(Player player) {
