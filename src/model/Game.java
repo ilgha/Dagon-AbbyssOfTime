@@ -40,6 +40,7 @@ public class Game implements KillableObserver {
 		}
 		window.setObjects(this.objects);
 		window.setFloor(this.floor1);
+		window.setPlayer(this.player);
 
 		Thread t1 = new Thread(new ThreadEnemys(100, this));
 		t1.start();
@@ -108,17 +109,20 @@ public class Game implements KillableObserver {
 							if (this.enemysEmpty()) {
 								this.nextRoom(door, room);
 								System.out.println("ok");
+								door.open();
+
 							} else {
 								System.out.println("Kill everyone");
 							}
 						}
 						if (door.getType() == 2) {
 							if (player.useKey()) {
+								door.activate();
 								this.nextRoom(door, room);
+
 							} else {
 								System.out.println("it's Locked, look for a key !");
 							}
-							door.activate();
 
 						}
 					}
@@ -140,19 +144,16 @@ public class Game implements KillableObserver {
 				Opponent o = (Opponent) obj;
 				int diffX = player.getPosX() - o.getPosX();
 				int diffY = player.getPosY() - o.getPosY();
-				if (diffX == 0 && diffY == 0) {
-					o.attack();
+				if (o.isAtPosition(this.player)) {
+					attack(o.getDmg());
 				} else {
 					float angle = (float) Math.atan2(diffY, diffX);
 
 					float x = (float) Math.cos(angle);
 					float y = (float) Math.sin(angle);
 					float d = distanceInBetween(o, this.player);
-					System.out.println(d + "/" + this.window.getMapHeight() / 200 * 1);
-					System.out.println(this.player.getPosX());
-					System.out.println(o.getPosX());
 
-					if (d <= this.window.getMapHeight() / 100 * 5) {
+					if (d <= this.window.getMapWidth() / 100 * 2) {
 						o.move(x, y, 3);
 					}
 				}
@@ -164,12 +165,13 @@ public class Game implements KillableObserver {
 	}
 
 	public synchronized void shoot(int dir) {
-		
-		Projectil p=new Projectil(player.getPosX(), player.getPosY(), dir,new HitBox(window.getMapWidth()/160*1, window.getMapHeight()/200*1) );   
+
+		Projectil p = new Projectil(player.getPosX(), player.getPosY(), dir,
+				new HitBox(window.getMapWidth() / 160 * 1, window.getMapHeight() / 200 * 1));
 		p.attachKillableObserver(this);
 		objects.add(p);
 		window.setObjects(this.objects);
-			
+
 		if (this.projectilesNumber() == 1) {
 			Thread t2 = new Thread(new ThreadProj(100, this));
 			t2.start();
@@ -315,11 +317,14 @@ public class Game implements KillableObserver {
 
 	}
 
-	// distance
+	public void attack(int dmg) {
+		this.player.getHit(dmg);
+	}
 
 	public float distanceInBetween(GameObject g1, GameObject g2) {
 		float d;
-		d = (float) Math.sqrt((g1.getPosX() - g2.getPosX()) ^ 2 + (g1.getPosY() - g2.getPosY()) ^ 2);
+		d = (float) Math
+				.sqrt(Math.pow(g1.getPosX() - g2.getPosX(), 1 / 2) + Math.pow(g1.getPosY() - g2.getPosY(), 1 / 2));
 		return d;
 
 	}
@@ -357,7 +362,6 @@ public class Game implements KillableObserver {
 		}
 		return i;
 	}
-	
 
 	public boolean enemysEmpty() {
 		int i = 0;

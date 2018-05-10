@@ -26,8 +26,11 @@ public class Door extends GameObject implements Directable{
 		}catch (IOException e){
 			System.out.println("no Image");
 		}
-		
-		door = doorSprites.getSubimage(dir*107, 0, 57, 49);
+		if(this.doorType == 1) {
+			door = doorSprites.getSubimage(dir*107, 0, 57, 49);
+		}if(this.doorType == 2) {
+			door = doorSprites.getSubimage(dir*107, 60, 57, 49);
+		}
 	}
 
 	public int getType(){
@@ -43,10 +46,18 @@ public class Door extends GameObject implements Directable{
 		return this.door;
 	}
 	
+	public void setType(int type) {
+		this.doorType = type;
+		
+	}
+	
 	public boolean isOpen() {
 		return this.open;
 	}
 	
+	public void open() {
+		this.door = doorSprites.getSubimage(72+this.Direction*107, 60, 57, 49);
+	}
 
 	@Override
 	public void activate() {
