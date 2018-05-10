@@ -11,9 +11,11 @@ public class Player extends GameObject implements Directable {
 	private int direction = SOUTH;
 	private int life = 5;
 	private int Keys = 0;
+	private int Potions = 0;
+	private int Dinamites = 0;
 
 	public Player(int X, int Y, HitBox hb) {
-		super(X, Y, hb, 0);
+		super(X, Y, hb);
 		try {
 			this.heroSprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
 		} catch (IOException e) {
@@ -76,7 +78,6 @@ public class Player extends GameObject implements Directable {
 		}
 	}
 
-
 	@Override
 	public int getDirection() {
 		return this.direction;
@@ -92,6 +93,44 @@ public class Player extends GameObject implements Directable {
 
 	public int getLife() {
 		return this.life;
+	}
+
+	public void takePotion() {
+		if (this.Potions > 0) {
+			this.life++;
+			this.Potions--;
+		}
+	}
+
+	public void pickUpPotion() {
+		this.Potions++;
+	}
+
+	public void pickUp(int i) {
+		if (i == 1) {
+			this.pickUpKey();
+		} else if (i == 2) {
+			this.pickUpPotion();
+		} else if (i == 3) {
+			this.PickUpDinamite();
+		}
+
+	}
+
+	public Dinamite throwDinamite() {
+		if (Dinamites == 0) {
+			System.out.println("Pas de dinamite");
+			return null;
+		} else {
+			this.Dinamites--;
+			Dinamite d = new Dinamite(this.getPosX(), this.getPosY(), this.getHitBox(), 3, System.currentTimeMillis());
+			return d;
+		}
+
+	}
+
+	private void PickUpDinamite() {
+		this.Dinamites++;
 	}
 
 	@Override

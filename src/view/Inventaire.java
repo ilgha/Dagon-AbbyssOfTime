@@ -13,11 +13,11 @@ import javax.swing.JPanel;
 import model.Player;
 
 public class Inventaire extends JPanel {
-	BufferedImage key;
-	BufferedImage DinamiteSprites;
-	BufferedImage bomb;
-	Player player;
-	LifeBar lb;
+	private BufferedImage key;
+	private BufferedImage DinamiteSprites;
+	private BufferedImage bomb;
+	private Player player;
+	private LifeBar lb;
 
 	public void paintComponent(Graphics g) {
 		try {

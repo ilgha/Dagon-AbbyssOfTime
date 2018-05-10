@@ -9,11 +9,10 @@ public abstract class GameObject implements Killable {
 	protected HitBox hitbox;
 	private KillableObserver Ko;
 
-	public GameObject(int X, int Y, HitBox hb, int type) {
+	public GameObject(int X, int Y, HitBox hb) {
 		this.posX = X;
 		this.posY = Y;
 		this.hitbox = hb;
-		this.type = type;
 	}
 
 	public abstract void activate();

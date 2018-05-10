@@ -5,17 +5,17 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Opponent extends GameObject implements Killable, Directable {
+public class Opponent extends GameObject implements Killable, Directable,ContientConsomable {
 
 	private int lifePoints = 2;
 	private BufferedImage enemy;
 	private BufferedImage enemySprites;
 	private int direction = SOUTH;
 	private boolean Key = false;
-
+	private int consomable = 0;
 	public Opponent(int X, int Y, HitBox hb) {
 
-		super(X, Y, hb, 1);
+		super(X, Y, hb);
 		try {
 			this.enemySprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
 		} catch (IOException e) {
@@ -88,5 +88,26 @@ public class Opponent extends GameObject implements Killable, Directable {
 		// TODO Auto-generated method stub
 
 	}
+	public void setConsomable(int i) {
+        this.consomable=i;
+
+    }
+
+    public boolean hasConsomable() {
+        if (consomable==0) {
+            return false;
+        }else {
+            return true;
+        }
+
+    }
+        public int getConsomable() {
+            return consomable;
+        }
+
+		public void setHitbox(HitBox hitBox) {
+			this.hitbox = hitBox;
+			
+		}
 
 }

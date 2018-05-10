@@ -13,7 +13,7 @@ public class Projectil extends GameObject implements Directable, Damage {
 	private BufferedImage projectilSprites;
 
 	public Projectil(int X, int Y, int direction, HitBox hb) {
-		super(X, Y, hb, 2);
+		super(X, Y, hb);
 		this.direction = direction;
 
 		try {

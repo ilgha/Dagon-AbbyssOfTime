@@ -5,12 +5,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Key extends GameObject {
+public class Key extends Consomables {
 	private BufferedImage keySprites;
 	private BufferedImage key;
 
-	public Key(int X, int Y, HitBox hb, int type) {
-		super(X, Y, hb, type);
+	public Key(int X, int Y, HitBox hb) {
+		super(X, Y, hb);
 
 		try {
 			this.keySprites = ImageIO.read(getClass().getResource("/images/Key.png"));

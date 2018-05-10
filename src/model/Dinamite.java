@@ -12,7 +12,7 @@ public class Dinamite extends GameObject {
 	private BufferedImage DinamiteSprites;
 
 	public Dinamite(int X, int Y, HitBox hb, int type, long tictacon) {
-		super(X, Y, hb, type);
+		super(X, Y, hb);
 
 		this.tictacOn = tictacon;
 		try {

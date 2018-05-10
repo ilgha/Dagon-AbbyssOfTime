@@ -35,5 +35,10 @@
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/clé_sprite.png</location>
 		</link>
+		<link>
+			<name>src/Images/potion.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/potion.png</location>
+		</link>
 	</linkedResources>
 </projectDescription>

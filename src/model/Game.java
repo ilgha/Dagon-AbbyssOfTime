@@ -33,40 +33,27 @@ public class Game implements KillableObserver {
 		Player player = new Player(playerCenterX, playerCenterY, hb);
 		this.player = player;
 		this.objects.add(player);
-		this.floor1 = new Floor1(this.hbDoor);
-		for (int i = 0; i < 1; i++) {
-			Opponent enemy = new Opponent(
-					(int) ((window.getMapHeight() / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-					(int) ((window.getMapWidth() / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY),
-					hb);
-			enemy.setKey();
-			enemy.attachKillableObserver(this);
-			this.objects.add(enemy);
-
-		}
+		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
+		
 		window.setObjects(this.objects);
 		window.setFloor(this.floor1);
 		window.setPlayer(this.player);
-
-		Thread t1 = new Thread(new ThreadEnemys(100, this));
-		t1.start();
-		System.out.println("thread start");
 
 	}
 
 	public void nextRoom(Door door, Room room) {
 
 		if (door.getDirection() == 0) {
-			player.setPosX(window.getMapWidth()/100*98 - door.getPosX() + player.getHitBox().getDeltaX());
+			player.setPosX(window.getMapWidth() / 100 * 98 - door.getPosX() + player.getHitBox().getDeltaX());
 			player.setPosY(door.getPosY());
 		}
 		if (door.getDirection() == 1) {
 			player.setPosX(door.getPosX());
-			player.setPosY(window.getMapHeight() - door.getPosY() - player.getHitBox().getDeltaX()*20);
+			player.setPosY(window.getMapHeight() - door.getPosY() - player.getHitBox().getDeltaX() * 20);
 		}
 		if (door.getDirection() == 2) {
 			player.setPosX(door.getPosX());
-			player.setPosY(window.getMapHeight()/100*95 - door.getPosY() + player.getHitBox().getDeltaX());
+			player.setPosY(window.getMapHeight() / 100 * 95 - door.getPosY() + player.getHitBox().getDeltaX());
 		}
 		if (door.getDirection() == 3) {
 			player.setPosX(window.getMapWidth() - door.getPosX() - player.getHitBox().getDeltaX() * 12);
@@ -78,66 +65,100 @@ public class Game implements KillableObserver {
 	}
 
 	public void movePlayer(int x, int y) {
+
 		ArrayList<Integer> toActivate = new ArrayList<Integer>();
 		Player player = null;
+
 		for (GameObject obj : objects) {
 			if (obj instanceof Player) {
 				player = (Player) obj;
 			}
+
+			// Verifier si sur Ramassable(consomable)
 		}
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
-			if (objects.get(i) instanceof Key) {
+			if (objects.get(i) instanceof Consomables) {
 				if (player.isAtPosition(obj)) {
-					System.out.println("in");
+					int TypeDeConsomable = ((Consomables) objects.get(i)).getType();
 					toActivate.add(i);
-					player.pickUpKey();
+					player.pickUp(TypeDeConsomable);
 				}
 			}
 		}
 		for (int i : toActivate) {
 			objects.get(i).activate();
 		}
-
+		// Verifier si contre le mur
 		if (hitWall(player, x, y)) {
 			player.move(0, 0);
 		} else {
 			player.move(x, y);
+		}
+		// Verifier si contre une porte
+		boolean changedRoom = false;
 
-			Room room = this.floor1.getCurrentRoom();
-			for (Door door : room.getDoors()) {
-				if (door.isAtPosition(player)) {
-					if (door.isOpen()) {
-						this.nextRoom(door, room);
-					} else {
-						if (door.getType() == 1) {
-							if (this.enemysEmpty()) {
-								this.nextRoom(door, room);
-								System.out.println("ok");
-								door.open();
+		Room room = this.floor1.getCurrentRoom();
+		for (Door door : room.getDoors()) {
 
-							} else {
-								System.out.println("Kill everyone");
-							}
-						}
-						if (door.getType() == 2) {
-							if (player.useKey()) {
-								door.activate();
-								this.nextRoom(door, room);
-								door.open();
-
-							} else {
-								System.out.println("it's Locked, look for a key !");
-							}
-
+			if (door.isAtPosition(player)) {
+				if (door.isOpen()) {
+					this.nextRoom(door, room);
+					changedRoom = true;
+				} else {
+					if (door.getType() == 1) {
+						if (this.enemysEmpty()) {
+							this.nextRoom(door, room);
+							changedRoom = true;
+							System.out.println("ok");
+							door.activate();
+						} else {
+							System.out.println("Kill everyone");
 						}
 					}
+					if (door.getType() == 2) {
+						if (player.useKey()) {
+							this.nextRoom(door, room);
+							changedRoom = true;
+							door.activate();
+						} else {
+							System.out.println("it's Locked, look for a key !");
+						}
 
+					}
 				}
+
+			}
+		}
+
+		// Verifier si changé de room
+		if (changedRoom) {
+			room = this.floor1.getCurrentRoom();
+			this.objects = room.getObjects();
+			objects.add(this.player);
+
+			this.prepareObjects();
+
+			Thread t1 = new Thread(new ThreadEnemys(100, this));
+			t1.start();
+			System.out.println("thread start");
+		}
+
+		window.setObjects(objects);
+		window.update();
+
+	}
+
+	private void prepareObjects() {
+		for (GameObject obj : objects) {
+			obj.attachKillableObserver(this);
+			if (obj instanceof Opponent) {
+				Opponent o = (Opponent) obj;
+				o.setHitbox(player.getHitBox());
 			}
 
-			window.update();
 		}
+
 	}
 
 	public synchronized void moveEnemy() {
@@ -328,10 +349,20 @@ public class Game implements KillableObserver {
 		if (K instanceof Opponent) {
 			Opponent o = (Opponent) K;
 
-			if (o.hasKey()) {
-				Key k1 = new Key(o.getPosX(), o.getPosY(), this.hbKey, 3);
-				k1.attachKillableObserver(this);
-				objects.add(k1);
+			if (o.hasConsomable()) {
+				if (o.getConsomable() == 1) {
+					Key k1 = new Key(o.getPosX(), o.getPosY(), o.getHitBox());
+					k1.attachKillableObserver(this);
+					objects.add(k1);
+				} else if (o.getConsomable() == 2) {
+					Potion p1 = new Potion(o.getPosX(), o.getPosY(), o.getHitBox());
+					p1.attachKillableObserver(this);
+					objects.add(p1);
+				} else if (o.getConsomable() == 3) {
+					DinamiteC d = new DinamiteC(o.getPosX(), o.getPosY(), o.getHitBox());
+					d.attachKillableObserver(this);
+					objects.add(d);
+				}
 			}
 
 			window.setObjects(this.objects);

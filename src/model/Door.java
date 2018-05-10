@@ -18,7 +18,7 @@ public class Door extends GameObject implements Directable {
 	private boolean open = false;
 
 	public Door(int dir, int DoorType) {
-		super(posX, posY, hb, 1);
+		super(posX, posY, hb);
 		this.Direction = dir;
 		this.doorType = DoorType;
 		try {
@@ -55,13 +55,11 @@ public class Door extends GameObject implements Directable {
 		return this.open;
 	}
 
-	public void open() {
-		this.door = doorSprites.getSubimage(54 + this.Direction * 107, 0, 57, 49);
-	}
 
 	@Override
 	public void activate() {
 		this.open = true;
+		this.door = doorSprites.getSubimage(54 + this.Direction * 107, 0, 57, 49);
 
 	}
 
