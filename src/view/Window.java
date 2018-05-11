@@ -25,6 +25,7 @@ public class Window extends JFrame {
 	public Window() {
 		this.setTitle("Dagon");
 		this.setSize(980, 565);
+		//this.setSize(1920,1080);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
@@ -35,7 +36,6 @@ public class Window extends JFrame {
 
 		this.getContentPane().add(pan, BorderLayout.CENTER);
 		this.getContentPane().add(inv, BorderLayout.WEST);
-
 		this.setVisible(true);
 
 	}

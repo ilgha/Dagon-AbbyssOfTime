@@ -69,6 +69,10 @@ public class Keyboard implements KeyListener {
     	if (Keyboard.isPressed(KeyEvent.VK_E)) {
     		game.throwDinamaite();
     	}
+    	if (Keyboard.isPressed(KeyEvent.VK_A)) {
+    		game.usePotion();
+    	}
+    	
     	
      }
 

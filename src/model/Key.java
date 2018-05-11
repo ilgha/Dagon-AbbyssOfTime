@@ -11,7 +11,7 @@ public class Key extends Consomables {
 
 	public Key(int X, int Y, HitBox hb) {
 		super(X, Y, hb);
-
+		this.Type = 1;
 		try {
 			this.keySprites = ImageIO.read(getClass().getResource("/images/Key.png"));
 		} catch (IOException e) {

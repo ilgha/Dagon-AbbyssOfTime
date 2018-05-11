@@ -9,6 +9,7 @@ public class Player extends GameObject implements Directable {
 	private BufferedImage heroSprites;
 	private BufferedImage hero;
 	private int direction = SOUTH;
+	private static int maxLife = 5;
 	private int life = 5;
 	private int Keys = 0;
 	private int Potions = 0;
@@ -94,6 +95,10 @@ public class Player extends GameObject implements Directable {
 	public int getLife() {
 		return this.life;
 	}
+	
+	public int getMaxLife() {
+		return Player.maxLife;
+	}
 
 	public void takePotion() {
 		if (this.Potions > 0) {
@@ -104,6 +109,10 @@ public class Player extends GameObject implements Directable {
 
 	public void pickUpPotion() {
 		this.Potions++;
+	}
+	
+	public int getNumberOfPotion() {
+		return this.Potions;
 	}
 
 	public void pickUp(int i) {
@@ -131,6 +140,10 @@ public class Player extends GameObject implements Directable {
 
 	private void PickUpDinamite() {
 		this.Dinamites++;
+	}
+	
+	public int getNumberOfDinamite() {
+		return this.Dinamites;
 	}
 
 	@Override

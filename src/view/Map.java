@@ -17,6 +17,7 @@ import model.Floor1;
 import model.GameObject;
 import model.Key;
 import model.Player;
+import model.Potion;
 import model.Projectil;
 import model.Room;
 import model.Opponent;
@@ -31,7 +32,7 @@ public class Map extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		
+
 		int playerWidth = this.getWidth() / 100 * 6;
 		int playerHeight = this.getHeight() / 100 * 15;
 		int playerCenterX = this.getWidth() / 2 - playerWidth / 2;
@@ -49,47 +50,65 @@ public class Map extends JPanel {
 
 		for (Door door : doors) {
 			if (door.getDirection() == 0) {
-				door.setPosX(this.getWidth() / 100 * 91);
-				door.setPosY(this.getHeight() / 100 * 41);
+				door.setPosX(this.getWidth() / 100 * 94);
+				door.setPosY(this.getHeight() / 100 * 50);
+				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 25,
+						door.getPosY() - doorHeight / 100 * 50, doorWidth, doorHeight, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(door.getPosX() - door.getHitBox().getDeltaX() / 2,
+						door.getPosY() - door.getHitBox().getDeltaY() / 2, door.getHitBox().getDeltaX(),
+						door.getHitBox().getDeltaY()); // hitbox porte
 			}
 			if (door.getDirection() == 1) {
-				door.setPosX(this.getWidth() / 100 * 48);
-				door.setPosY(this.getHeight() / 100 * 2);
+				door.setPosX(this.getWidth() / 100 * 52);
+				door.setPosY(this.getHeight() / 100 * 12);
+				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 50,
+						door.getPosY() - doorHeight / 100 * 50, doorWidth, doorHeight, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(door.getPosX() - door.getHitBox().getDeltaX() / 2,
+						door.getPosY() - door.getHitBox().getDeltaY() / 2, door.getHitBox().getDeltaX(),
+						door.getHitBox().getDeltaY()); // hitbox porte
 			}
 			if (door.getDirection() == 2) {
-				door.setPosX(this.getWidth() / 100 * 47);
-				door.setPosY(this.getHeight() / 100 * 83);
+				door.setPosX(this.getWidth() / 100 * 52);
+				door.setPosY(this.getHeight() / 100 * 86);
+				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 53,
+						door.getPosY() - doorHeight / 100 * 20, doorWidth, doorHeight, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(door.getPosX() - door.getHitBox().getDeltaX() / 2,
+						door.getPosY() - door.getHitBox().getDeltaY() / 2, door.getHitBox().getDeltaX(),
+						door.getHitBox().getDeltaY()); // hitbox porte
 			}
 			if (door.getDirection() == 3) {
-				door.setPosX(this.getWidth() / 100 * 4);
-				door.setPosY(this.getHeight() / 100 * 41);
+				door.setPosX(this.getWidth() / 100 * 10);
+				door.setPosY(this.getHeight() / 100 * 50);
+				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 50,
+						door.getPosY() - doorHeight / 100 * 50, doorWidth, doorHeight, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(door.getPosX() - door.getHitBox().getDeltaX() / 2,
+						door.getPosY() - door.getHitBox().getDeltaY() / 2, door.getHitBox().getDeltaX(),
+						door.getHitBox().getDeltaY()); // hitbox porte
 			}
 			
-			g.drawImage(door.getImage(), door.getPosX(), door.getPosY(), doorWidth, doorHeight, null);
-			g.setColor(Color.BLUE);
-			g.drawRect(door.getPosX() + doorWidth / 4, door.getPosY() + doorHeight / 3,
-					door.getHitBox().getDeltaX() * 2, door.getHitBox().getDeltaY() * 2); // hitbox porte
 		}
 		for (GameObject obj : objects) {
 			if (obj instanceof Opponent) {
 				Opponent enemy = (Opponent) obj;
-				g.drawImage(enemy.getImage(), enemy.getPosX(), enemy.getPosY(), this.getWidth() / 100 * 6,
-						this.getHeight() / 100 * 15, null);
+				g.drawImage(enemy.getImage(), enemy.getPosX() - playerWidth / 2, enemy.getPosY() - playerHeight / 2,
+						this.getWidth() / 100 * 6, this.getHeight() / 100 * 15, null);
 				g.setColor(Color.BLUE);
-				// g.drawOval(enemy.getPosX()+playerCenterX, enemy.getPosY()+playerCenterY,
-				// this.getHeight()/100*10, this.getHeight()/100*10); champs de vision de
-				// l'ennemi
-				g.drawRect(enemy.getPosX() + enemy.getHitBox().getDeltaX() * 2, enemy.getPosY(),
-						enemy.getHitBox().getDeltaX() * 2, enemy.getHitBox().getDeltaY() * 2); // hitbox du player
+				g.drawRect(enemy.getPosX() - enemy.getHitBox().getDeltaX() / 2,
+						enemy.getPosY() - enemy.getHitBox().getDeltaY() / 2, enemy.getHitBox().getDeltaX(),
+						enemy.getHitBox().getDeltaY()); // hitbox du player
 
 			}
 			if (obj instanceof Projectil) {
 				Projectil proj = (Projectil) obj;
-				g.drawImage(proj.getImage(), proj.getPosX() + playerWidth / 2, proj.getPosY() + playerHeight / 2,
+				g.drawImage(proj.getImage(), proj.getPosX() , proj.getPosY() ,
 						this.getWidth() / 100 * 1, this.getHeight() / 100 * 1, null);
 				g.setColor(Color.BLUE);
-				g.drawRect(proj.getPosX() + playerWidth / 2, proj.getPosY() + playerHeight / 2,
-						proj.getHitBox().getDeltaX() * 2, proj.getHitBox().getDeltaY() * 2); // hitbox du player
+				g.drawRect(proj.getPosX() , proj.getPosY() ,
+						proj.getHitBox().getDeltaX() , proj.getHitBox().getDeltaY() ); // hitbox du player
 
 			}
 			if (obj instanceof Key) {
@@ -100,6 +119,15 @@ public class Map extends JPanel {
 				g.drawRect(k.getPosX() + k.getHitBox().getDeltaX() * 2, k.getPosY(), k.getHitBox().getDeltaX() * 2,
 						k.getHitBox().getDeltaY() * 2);
 			}
+			if (obj instanceof Potion) {
+				Potion p = (Potion) obj;
+				g.drawImage(p.getImage(), p.getPosX(), p.getPosY(), this.getWidth() / 100 * 6,
+						this.getHeight() / 100 * 6, null);
+				g.setColor(Color.BLUE);
+				g.drawRect(p.getPosX() + p.getHitBox().getDeltaX() * 2, p.getPosY(), p.getHitBox().getDeltaX() * 2,
+						p.getHitBox().getDeltaY() * 2);
+			}
+
 			if (obj instanceof Dinamite) {
 
 				Dinamite d = (Dinamite) obj;
@@ -111,11 +139,12 @@ public class Map extends JPanel {
 			}
 			if (obj instanceof Player) {
 				Player player = (Player) obj;
-				g.drawImage(player.getImage(), player.getPosX(), player.getPosY(), this.getWidth() / 100 * 6,
-						this.getHeight() / 100 * 15, this);
+				g.drawImage(player.getImage(), player.getPosX() - playerWidth / 2, player.getPosY() - playerHeight / 2,
+						this.getWidth() / 100 * 6, this.getHeight() / 100 * 15, this);
 				g.setColor(Color.BLUE);
-				g.drawRect(player.getPosX() + player.getHitBox().getDeltaX() * 2, player.getPosY(),
-						player.getHitBox().getDeltaX() * 2, player.getHitBox().getDeltaY() * 2); // hitbox du player
+				g.drawRect(player.getPosX() - player.getHitBox().getDeltaX() / 2,
+						player.getPosY() - player.getHitBox().getDeltaY() / 2, player.getHitBox().getDeltaX(),
+						player.getHitBox().getDeltaY()); // hitbox du player
 			}
 		}
 	}

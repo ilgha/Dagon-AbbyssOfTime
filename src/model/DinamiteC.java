@@ -11,7 +11,7 @@ public class DinamiteC extends Consomables  {
 
 	public DinamiteC(int X, int Y, HitBox hb) {
 		super(X, Y, hb);
-
+		this.Type = 3;
 		
 		try {
 			this.DinamiteSprites = ImageIO.read(getClass().getResource("/images/Bombe.png"));

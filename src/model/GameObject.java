@@ -5,7 +5,6 @@ import java.awt.image.BufferedImage;
 public abstract class GameObject implements Killable {
 	protected int posX;
 	protected int posY;
-	protected int type;
 	protected HitBox hitbox;
 	private KillableObserver Ko;
 
@@ -33,10 +32,6 @@ public abstract class GameObject implements Killable {
 		return this.hitbox;
 	}
 
-	public int getType() {
-		return this.type;
-	}
-
 	public void setPosX(int x) {
 		this.posX = x;
 	}
@@ -46,10 +41,10 @@ public abstract class GameObject implements Killable {
 	}
 
 	public boolean isAtPosition(GameObject go) {
-		int deltXmax = Math.abs(this.hitbox.getDeltaX() + go.getHitBox().getDeltaX()); // retourne si la distance entre
+		int deltXmax = Math.abs(this.hitbox.getDeltaX()/2 + go.getHitBox().getDeltaX()/2); // retourne si la distance entre
 																						// les deux centre <= les
 																						// dimensions des deux hitbox
-		int deltYmax = Math.abs(this.hitbox.getDeltaY() + go.getHitBox().getDeltaY());
+		int deltYmax = Math.abs(this.hitbox.getDeltaY()/2 + go.getHitBox().getDeltaY()/2);
 		int deltCenterX = Math.abs(this.posX - go.getPosX());
 		int deltCenterY = Math.abs(this.posY - go.getPosY());
 		return deltCenterX <= deltXmax && deltCenterY <= deltYmax;

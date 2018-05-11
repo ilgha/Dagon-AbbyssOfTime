@@ -13,7 +13,6 @@ public class Dinamite extends GameObject {
 
 	public Dinamite(int X, int Y, HitBox hb, int type, long tictacon) {
 		super(X, Y, hb);
-
 		this.tictacOn = tictacon;
 		try {
 			this.DinamiteSprites = ImageIO.read(getClass().getResource("/images/Bombe.png"));

@@ -13,17 +13,15 @@ public class Floor1 {
 		ArrayList<Door> drset1 = new ArrayList<Door>();
 		drset1.add(new Door(0, 2));
 		drset1.add(new Door(1, 1));
-		for (Door d : drset1) {
-			d.activate();
-		}
-		ObjectsInRoom ob1 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		drset1.get(1).activate();
+		ObjectsInRoom ob1 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 0);
 		ArrayList<GameObject> obset1 = ob1.getObjects();
 		Room r1 = new Room(this.hb, drset1, obset1);
 		rooms.add(r1);
 
 		ArrayList<Door> drset2 = new ArrayList<Door>();
 		drset2.add(new Door(2, 1));
-		ObjectsInRoom ob2 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		ObjectsInRoom ob2 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 5);
 		ArrayList<GameObject> obset2 = ob2.getObjects();
 		Room r2 = new Room(this.hb, drset2, obset2);
 		rooms.add(r2);
@@ -32,14 +30,14 @@ public class Floor1 {
 		drset3.add(new Door(0, 1));
 		drset3.add(new Door(2, 1));
 		drset3.add(new Door(3, 2));
-		ObjectsInRoom ob3 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		ObjectsInRoom ob3 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 5);
 		ArrayList<GameObject> obset3 = ob3.getObjects();
 		Room r3 = new Room(this.hb, drset3, obset3);
 		rooms.add(r3);
 
 		ArrayList<Door> drset4 = new ArrayList<Door>();
 		drset4.add(new Door(3, 1));
-		ObjectsInRoom ob4 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		ObjectsInRoom ob4 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 5);
 		ArrayList<GameObject> obset4 = ob4.getObjects();
 		Room r4 = new Room(this.hb, drset4, obset4);
 		rooms.add(r4);
@@ -47,14 +45,14 @@ public class Floor1 {
 		ArrayList<Door> drset5 = new ArrayList<Door>();
 		drset5.add(new Door(0, 1));
 		drset5.add(new Door(1, 1));
-		ObjectsInRoom ob5 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		ObjectsInRoom ob5 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 5);
 		ArrayList<GameObject> obset5 = ob5.getObjects();
 		Room r5 = new Room(this.hb, drset5, obset5);
 		rooms.add(r5);
 
 		ArrayList<Door> drset6 = new ArrayList<Door>();
 		drset6.add(new Door(3, 1));
-		ObjectsInRoom ob6 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 10);
+		ObjectsInRoom ob6 = new ObjectsInRoom(mapWidth, mapHeight, drset1, 5);
 		ArrayList<GameObject> obset6 = ob6.getObjects();
 		Room r6 = new Room(this.hb, drset6, obset6);
 		rooms.add(r6);

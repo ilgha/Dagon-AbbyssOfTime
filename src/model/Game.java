@@ -23,18 +23,18 @@ public class Game implements KillableObserver {
 		this.window = window;
 		int playerWidth = this.window.getMapWidth() / 100 * 6;
 		int playerHeight = this.window.getMapHeight() / 100 * 15;
-		int playerCenterX = this.window.getMapWidth() / 2 - playerWidth / 2;
-		int playerCenterY = this.window.getMapHeight() / 2 - playerHeight / 2;
+		int playerCenterX = this.window.getMapWidth() / 2;
+		int playerCenterY = this.window.getMapHeight() / 2;
 		this.delta = this.window.getMapWidth() / 100 * 3;
-		this.hb = new HitBox(window.getMapWidth() / 100 * 1, window.getMapHeight() / 100 * 6);
+		this.hb = new HitBox(window.getMapWidth() / 100 * 1, window.getMapHeight() / 100 * 5);
 		this.hbKey = new HitBox(window.getMapWidth() / 100 * 1, window.getMapHeight() / 100 * 2);
-		this.hbDoor = new HitBox(window.getMapWidth() / 100 * 3, window.getMapHeight() / 100 * 3);
+		this.hbDoor = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
 
 		Player player = new Player(playerCenterX, playerCenterY, hb);
 		this.player = player;
 		this.objects.add(player);
 		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
-		
+
 		window.setObjects(this.objects);
 		window.setFloor(this.floor1);
 		window.setPlayer(this.player);
@@ -67,22 +67,15 @@ public class Game implements KillableObserver {
 	public void movePlayer(int x, int y) {
 
 		ArrayList<Integer> toActivate = new ArrayList<Integer>();
-		Player player = null;
 
-		for (GameObject obj : objects) {
-			if (obj instanceof Player) {
-				player = (Player) obj;
-			}
-
-			// Verifier si sur Ramassable(consomable)
-		}
 		for (int i = 0; i < objects.size(); i++) {
 			GameObject obj = objects.get(i);
 			if (objects.get(i) instanceof Consomables) {
-				if (player.isAtPosition(obj)) {
+				if (this.player.isAtPosition(obj)) {
+					System.out.println("sur clé");
 					int TypeDeConsomable = ((Consomables) objects.get(i)).getType();
 					toActivate.add(i);
-					player.pickUp(TypeDeConsomable);
+					this.player.pickUp(TypeDeConsomable);
 				}
 			}
 		}
@@ -90,10 +83,10 @@ public class Game implements KillableObserver {
 			objects.get(i).activate();
 		}
 		// Verifier si contre le mur
-		if (hitWall(player, x, y)) {
-			player.move(0, 0);
+		if (hitWall(this.player, x, y)) {
+			this.player.move(0, 0);
 		} else {
-			player.move(x, y);
+			this.player.move(x, y);
 		}
 		// Verifier si contre une porte
 		boolean changedRoom = false;
@@ -101,7 +94,7 @@ public class Game implements KillableObserver {
 		Room room = this.floor1.getCurrentRoom();
 		for (Door door : room.getDoors()) {
 
-			if (door.isAtPosition(player)) {
+			if (door.isAtPosition(this.player)) {
 				if (door.isOpen()) {
 					this.nextRoom(door, room);
 					changedRoom = true;
@@ -117,7 +110,7 @@ public class Game implements KillableObserver {
 						}
 					}
 					if (door.getType() == 2) {
-						if (player.useKey()) {
+						if (this.player.useKey()) {
 							this.nextRoom(door, room);
 							changedRoom = true;
 							door.activate();
@@ -131,7 +124,7 @@ public class Game implements KillableObserver {
 			}
 		}
 
-		// Verifier si changÃ© de room
+		// Verifier si changé de room
 		if (changedRoom) {
 			room = this.floor1.getCurrentRoom();
 			this.objects = room.getObjects();
@@ -154,7 +147,7 @@ public class Game implements KillableObserver {
 			obj.attachKillableObserver(this);
 			if (obj instanceof Opponent) {
 				Opponent o = (Opponent) obj;
-				o.setHitbox(player.getHitBox());
+				o.setHitbox(hb);
 			}
 
 		}
@@ -278,6 +271,13 @@ public class Game implements KillableObserver {
 		this.player.setHitBox(hb);
 	}
 
+	public void usePotion() {
+		if (this.player.getLife() < this.player.getMaxLife()) {
+			this.player.takePotion();
+		}
+		window.update();
+	}
+
 	public int DinamiteNumber() {
 		int i = 0;
 		for (GameObject obj : objects) {
@@ -321,14 +321,6 @@ public class Game implements KillableObserver {
 
 	public synchronized void throwDinamaite() {
 
-		Player player = null;
-
-		for (GameObject obj : objects) {
-			if (obj instanceof Player) {
-				player = (Player) obj;
-			}
-		}
-
 		Dinamite d = new Dinamite(player.getPosX(), player.getPosY(), player.getHitBox(), 3,
 				System.currentTimeMillis());
 		d.attachKillableObserver(this);
@@ -351,15 +343,15 @@ public class Game implements KillableObserver {
 
 			if (o.hasConsomable()) {
 				if (o.getConsomable() == 1) {
-					Key k1 = new Key(o.getPosX(), o.getPosY(), o.getHitBox());
+					Key k1 = new Key(o.getPosX(), o.getPosY(), hbKey);
 					k1.attachKillableObserver(this);
 					objects.add(k1);
 				} else if (o.getConsomable() == 2) {
-					Potion p1 = new Potion(o.getPosX(), o.getPosY(), o.getHitBox());
+					Potion p1 = new Potion(o.getPosX(), o.getPosY(), hbKey);
 					p1.attachKillableObserver(this);
 					objects.add(p1);
 				} else if (o.getConsomable() == 3) {
-					DinamiteC d = new DinamiteC(o.getPosX(), o.getPosY(), o.getHitBox());
+					DinamiteC d = new DinamiteC(o.getPosX(), o.getPosY(), hbKey);
 					d.attachKillableObserver(this);
 					objects.add(d);
 				}
@@ -379,10 +371,10 @@ public class Game implements KillableObserver {
 	}
 
 	public boolean hitWall(GameObject obj, int x, int y) {
-		return obj.getPosX() + x < this.window.getMapWidth() / 100 * 6
-				|| obj.getPosX() + x > this.window.getMapWidth() / 100 * 91
-				|| obj.getPosY() + y < this.window.getMapHeight() / 100 * 10
-				|| obj.getPosY() + y > this.window.getMapHeight() / 100 * 80;
+		return obj.getPosX() + x < this.window.getMapWidth() / 100 * 10
+				|| obj.getPosX() + x > this.window.getMapWidth() / 100 * 93
+				|| obj.getPosY() + y < this.window.getMapHeight() / 100 * 13
+				|| obj.getPosY() + y > this.window.getMapHeight() / 100 * 84;
 	}
 
 	public boolean hitWall(GameObject obj) {

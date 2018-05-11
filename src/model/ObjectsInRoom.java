@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class ObjectsInRoom {
 
@@ -19,6 +20,7 @@ public class ObjectsInRoom {
 
 		this.doors = doors;
 		this.nEnemys = NumberEnemys;
+		Random rand = new Random();
 
 		for (Door door : this.doors) {
 			if (door.getType() == 2) {
