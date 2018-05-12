@@ -86,6 +86,7 @@ public class Keyboard implements KeyListener {
     	if (Keyboard.isPressed(KeyEvent.VK_A)) {
     		game.usePotion();
     	}
+    	System.out.println(Keyboard.isPressed(KeyEvent.VK_Z));
     	
 
         switch (this.direction) {
