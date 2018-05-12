@@ -12,7 +12,7 @@ public class Room implements Image {
 	private ArrayList<Door> doors = new ArrayList<Door>();
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
-	public Room(HitBox hb, ArrayList<Door> doors, ArrayList<GameObject> objects) {
+	public Room(ArrayList<Door> doors, ArrayList<GameObject> objects) {
 		try {
 			floor = ImageIO.read(getClass().getResource("/images/binding_of_isaac_rebirth_tiles_Ruins.png"));
 		} catch (IOException e) {

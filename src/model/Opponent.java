@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Opponent extends GameObject implements Killable, Directable,ContientConsomable {
+public class Opponent extends Ennemi implements Killable, Directable,ContientConsomable {
 
 	private int lifePoints = 2;
 	private BufferedImage crawler;

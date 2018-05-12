@@ -24,6 +24,7 @@ public class Game implements KillableObserver {
 	private HitBox hbKey;
 	private HitBox hbDoor;
 	private HitBox hbRock;
+	private HitBox hbBoss;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	public Game(Window window) {
@@ -35,11 +36,12 @@ public class Game implements KillableObserver {
 		this.hbKey = new HitBox(window.getMapWidth() / 100 * 2, window.getMapHeight() / 100 * 4);
 		this.hbDoor = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
 		this.hbRock = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
+		//this.hbBoss = 
 
 		Player player = new Player(playerCenterX, playerCenterY, hb);
 		this.player = player;
 		this.objects.add(player);
-		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
+		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor, this.hb,this.hbRock);
 		// déplacement fluide
 		Timer timer = new Timer(33, new ActionListener() {
 			@Override
@@ -169,6 +171,10 @@ public class Game implements KillableObserver {
 				Opponent o = (Opponent) obj;
 				o.setHitbox(hb);
 			}
+			if (obj instanceof Boss) {
+				Boss b = (Boss) obj;
+				b.setHitBox(hb);
+			}
 			if (obj instanceof Rock) {
 				Rock r = (Rock) obj;
 				r.setHitBox(hb);
@@ -183,7 +189,11 @@ public class Game implements KillableObserver {
 		// calcul du target;
 
 		for (GameObject obj : objects) {
-
+			if(obj instanceof Boss) {
+                System.out.println("as");
+                Boss B = (Boss) obj;
+                B.move(0.1);
+            }
 			if (obj instanceof Opponent) {
 				Opponent o = (Opponent) obj;
 				int diffX = player.getPosX() - o.getPosX();
@@ -288,7 +298,7 @@ public class Game implements KillableObserver {
 					toActivate.add(i);
 
 				}
-				p.move(10);
+				p.move(20);
 
 			}
 
@@ -347,7 +357,7 @@ public class Game implements KillableObserver {
 					for (int j = 0; j < objects.size(); j++) {
 						if (objects.get(j) instanceof Opponent) {
 							Opponent o = (Opponent) objects.get(j);
-							if (distanceInBetween(o, d) < 20) {
+							if (distanceInBetween(o, d) < this.window.getMapWidth() / 100 * 30) {
 								toActivate.add(j);
 
 							}
@@ -469,7 +479,7 @@ public class Game implements KillableObserver {
 	public boolean enemysEmpty() {
 		int i = 0;
 		for (GameObject obj : objects) {
-			if (obj instanceof Opponent)
+			if (obj instanceof Ennemi)
 				i++;
 		}
 		return (i == 0);

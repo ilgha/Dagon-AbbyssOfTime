@@ -11,13 +11,12 @@ public class Door extends GameObject implements Directable {
 	private int Direction;
 	private BufferedImage doorSprites;
 	private BufferedImage door;
-	private static HitBox hb = new HitBox(21, 16);
 	private static int posX = 0;
 	private static int posY = 0;
 	private int doorType;
 	private boolean open = false;
 
-	public Door(int dir, int DoorType) {
+	public Door(int dir, int DoorType, HitBox hb) {
 		super(posX, posY, hb);
 		this.Direction = dir;
 		this.doorType = DoorType;

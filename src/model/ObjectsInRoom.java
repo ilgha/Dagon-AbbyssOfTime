@@ -5,71 +5,75 @@ import java.util.Random;
 
 public class ObjectsInRoom {
 
-	private ArrayList<Door> doors = new ArrayList<Door>();
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	private ArrayList<Opponent> opponents = new ArrayList<Opponent>();
+	private ArrayList<Rock> rocks = new ArrayList<Rock>();
+
 	private int nEnemys;
-	private int nKeys = 0;
-	private int nPotions = 1;
-	private int nDinamites = 1;
-	private int nRocks = 3;
+	private int nKeys;
+	private int nPotions;
+	private int nDinamites;
+	private int nRocks;
 
-	public ObjectsInRoom(int mapWidth, int mapHeight, ArrayList<Door> doors, int NumberEnemys) {
-		int playerWidth = mapWidth / 100 * 6;
-		int playerHeight = mapHeight / 100 * 15;
-		int playerCenterX = mapWidth / 2 - playerWidth / 2;
-		int playerCenterY = mapHeight / 2 - playerHeight / 2;
+	public ObjectsInRoom(int mapWidth, int mapHeight, ArrayList<Door> doors, ArrayList<Opponent> opponents,
+			ArrayList<Rock> rocks, int nPo, int nDin, int nK) {
 
-		this.doors = doors;
+		int NumberEnemys = opponents.size();
+		this.opponents = opponents;
 		this.nEnemys = NumberEnemys;
 
-		for (Door door : this.doors) {
-			if (door.getType() == 2) {
-				nKeys++;
+		this.nRocks = rocks.size();
+		this.rocks = rocks;
+		this.nPotions = nPo;
+		this.nDinamites = nDin;
+		this.nKeys = nK;
+
+		int nEnemysSansConsomables = nEnemys - (nDinamites + nPotions + nKeys);
+
+		for (int i = 0; i < nRocks; i++) {
+
+			Rock rock = rocks.get(i);
+			rock.setConsomable(2);
+			this.objects.add(rock);
+		}
+
+		for (int i = 0; i < nKeys; i++) {
+			if (this.opponents.size() != 0) {
+				Opponent enemy = opponents.get(i);
+				enemy.setConsomable(1);
+				this.objects.add(enemy);
+
 			}
 		}
 
-		int nEnemysSansConsomables = nEnemys - (nDinamites + nPotions + nKeys);
-		
-		for (int i=0; i<nRocks;i++) {
-            Rock rock = new Rock(
-                    (int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-                    (int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
-            rock.setConsomable(2);
-            this.objects.add(rock);
-        }
-		for (int i = 0; i < nKeys; i++) {
-			Opponent enemy = new Opponent(
-					(int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-					(int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
-			enemy.setConsomable(1);
-			this.objects.add(enemy);
+		for (int i = nKeys; i <= nPotions; i++) {
+			if (this.opponents.size() != 0) {
+				Opponent enemy = opponents.get(i);
+
+				enemy.setConsomable(2);
+				this.objects.add(enemy);
+
+			}
 		}
 
-		for (int i = 0; i < nPotions; i++) {
-			Opponent enemy = new Opponent(
-					(int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-					(int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
-			enemy.setConsomable(2);
-			this.objects.add(enemy);
+		for (int i = nKeys+nPotions; i <= nDinamites; i++) {
+			if (this.opponents.size() != 0) {
+				Opponent enemy = opponents.get(i);
+
+				enemy.setConsomable(3);
+				this.objects.add(enemy);
+								
+			}
 		}
 
-		for (int i = 0; i < nDinamites; i++) {
-
-			Opponent enemy = new Opponent(
-					(int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-					(int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
-			enemy.setConsomable(3);
-			this.objects.add(enemy);
-
-		}
 		for (int i = 0; i < nEnemysSansConsomables; i++) {
-
-			Opponent enemy = new Opponent(
-					(int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
-					(int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
-			enemy.setConsomable(0);
-			this.objects.add(enemy);
-
+			if (this.opponents.size() != 0) {
+				Opponent enemy = opponents.get(i);
+				
+				enemy.setConsomable(0);
+				this.objects.add(enemy);
+				opponents.remove(i);
+			}
 		}
 
 	}

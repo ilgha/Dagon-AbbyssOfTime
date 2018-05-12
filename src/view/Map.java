@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import model.Boss;
 import model.Dinamite;
 import model.DinamiteC;
 import model.Door;
@@ -37,6 +38,9 @@ public class Map extends JPanel {
 
 		int playerWidth = this.getWidth() / 100 * 6;
 		int playerHeight = this.getHeight() / 100 * 15;
+		
+		int bossWidth = this.getWidth() / 100 * 30;
+		int bossHeight = this.getHeight() / 100*70;
 
 		int rockWidth = this.getWidth() / 100 * 6;
 		int rockHeight = this.getHeight() / 100 * 15;
@@ -135,6 +139,13 @@ public class Map extends JPanel {
 						itemHeight, null);
 
 			}
+			if (obj instanceof Boss) {
+
+                Boss b = (Boss) obj;
+                g.drawImage(b.getImage(), b.getPosX() - bossWidth / 2, b.getPosY() - bossHeight / 2,
+                		bossWidth, bossHeight, null);
+
+            }
 			if (obj instanceof Player) {
 				Player player = (Player) obj;
 				g.drawImage(player.getImage(), player.getPosX() - playerWidth / 2, player.getPosY() - playerHeight / 2,

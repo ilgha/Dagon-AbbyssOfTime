@@ -24,8 +24,9 @@ public class Window extends JFrame {
 
 	public Window() {
 		this.setTitle("Dagon");
-		this.setSize(980, 565);
-		//this.setSize(1920,1080);
+		//this.setSize(980, 565);
+		this.setSize(1920,1080);
+		this.setExtendedState(Frame.MAXIMIZED_BOTH);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
 
