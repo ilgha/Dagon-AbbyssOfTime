@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Floor1 {
 	private ArrayList<Room> rooms = new ArrayList<Room>();
-	private int curentRoom = 4;
+	private int curentRoom = 0;
 
 	public Floor1(int mapWidth, int mapHeight, HitBox hbDoor, HitBox hbOp, HitBox hbRk, HitBox hbBoss) {
 
