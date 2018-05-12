@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Floor1 {
 	private ArrayList<Room> rooms = new ArrayList<Room>();
-	private int curentRoom = 0;
+	private int curentRoom = 4;
 
-	public Floor1(int mapWidth, int mapHeight, HitBox hbDoor, HitBox hbOp, HitBox hbRk) {
+	public Floor1(int mapWidth, int mapHeight, HitBox hbDoor, HitBox hbOp, HitBox hbRk, HitBox hbBoss) {
 
 		ArrayList<Door> drset1 = new ArrayList<Door>();
 		drset1.add(new Door(0, 2,hbDoor));
@@ -14,7 +14,7 @@ public class Floor1 {
 		drset1.get(1).activate();
 		ArrayList<Opponent> opset1 = new ArrayList<Opponent>();
 		ArrayList<Rock> rkset1 = new ArrayList<Rock>();
-		ObjectsInRoom ob1 = new ObjectsInRoom(mapWidth, mapHeight, drset1, opset1,rkset1,0,0,0);
+		ObjectsInRoom ob1 = new ObjectsInRoom(mapWidth, mapHeight, drset1, opset1,rkset1,0,0,2);
 		ArrayList<GameObject> obset1 = ob1.getObjects();
 		Room r1 = new Room(drset1, obset1);
 		rooms.add(r1);
@@ -23,8 +23,9 @@ public class Floor1 {
 		drset2.add(new Door(2, 1,hbDoor));
 		ArrayList<Opponent> opset2 = new ArrayList<Opponent>();
 		opset2.add(new Opponent(mapWidth/100*51,mapHeight/100*27,hbOp));
-		opset2.add(new Opponent(mapWidth/100*25,mapHeight/100*45,hbOp));
-		opset2.add(new Opponent(mapWidth/100*75,mapHeight/100*45,hbOp));
+		opset2.add(new Opponent(mapWidth/100*25,mapHeight/100*55,hbOp));
+		opset2.add(new Opponent(mapWidth/100*75,mapHeight/100*55,hbOp));
+		opset2.add(new Opponent(mapWidth/100*50,mapHeight/100*50,hbOp));
 		ArrayList<Rock> rkset2 = new ArrayList<Rock>();
 		rkset2.add(new Rock(mapWidth/100*51,mapHeight/100*57,hbRk));
 		rkset2.add(new Rock(mapWidth/100*25,mapHeight/100*40,hbRk));
@@ -42,16 +43,30 @@ public class Floor1 {
 		opset3.add(new Opponent(mapWidth/100*25,mapHeight/100*25,hbOp));
 		opset3.add(new Opponent(mapWidth/100*25,mapHeight/100*75,hbOp));
 		opset3.add(new Opponent(mapWidth/100*50,mapHeight/100*50,hbOp));
-		opset3.add(new Opponent(mapWidth/100*60,mapHeight/100*30,hbOp));
-		opset3.add(new Opponent(mapWidth/100*60,mapHeight/100*60,hbOp));
-		ObjectsInRoom ob3 = new ObjectsInRoom(mapWidth, mapHeight, drset3, opset3,rkset1,2,4,1);
+		opset3.add(new Opponent(mapWidth/100*70,mapHeight/100*30,hbOp));
+		opset3.add(new Opponent(mapWidth/100*70,mapHeight/100*65,hbOp));
+		ArrayList<Rock> rkset3 = new ArrayList<Rock>();
+		rkset3.add(new Rock(mapWidth/100*25,mapHeight/100*35,hbRk));
+		rkset3.add(new Rock(mapWidth/100*25,mapHeight/100*65,hbRk));
+		rkset3.add(new Rock(mapWidth/100*80,mapHeight/100*30,hbRk));
+		rkset3.add(new Rock(mapWidth/100*80,mapHeight/100*65,hbRk));
+		ObjectsInRoom ob3 = new ObjectsInRoom(mapWidth, mapHeight, drset3, opset3,rkset3,1,4,0);
 		ArrayList<GameObject> obset3 = ob3.getObjects();
 		Room r3 = new Room(drset3, obset3);
 		rooms.add(r3);
 
 		ArrayList<Door> drset4 = new ArrayList<Door>();
 		drset4.add(new Door(3, 1,hbDoor));
-		ObjectsInRoom ob4 = new ObjectsInRoom(mapWidth, mapHeight, drset1, opset1,rkset1,3,0,1);
+		ArrayList<Opponent> opset4 = new ArrayList<Opponent>();
+		opset4.add(new Opponent(mapWidth/100*41,mapHeight/100*52,hbOp));
+		opset4.add(new Opponent(mapWidth/100*51,mapHeight/100*30,hbOp));
+		opset4.add(new Opponent(mapWidth/100*51,mapHeight/100*70,hbOp));
+		opset4.add(new Opponent(mapWidth/100*85,mapHeight/100*52,hbOp));
+		ArrayList<Rock> rkset4 = new ArrayList<Rock>();
+		rkset4.add(new Rock(mapWidth/100*51,mapHeight/100*52,hbRk));
+		rkset4.add(new Rock(mapWidth/100*80,mapHeight/100*66,hbRk));
+		rkset4.add(new Rock(mapWidth/100*80,mapHeight/100*38,hbRk));
+		ObjectsInRoom ob4 = new ObjectsInRoom(mapWidth, mapHeight, drset4, opset4,rkset4,2,1,1);
 		ArrayList<GameObject> obset4 = ob4.getObjects();
 		Room r4 = new Room(drset4, obset4);
 		rooms.add(r4);
@@ -59,7 +74,17 @@ public class Floor1 {
 		ArrayList<Door> drset5 = new ArrayList<Door>();
 		drset5.add(new Door(0, 2,hbDoor));
 		drset5.add(new Door(1, 1,hbDoor));
-		ObjectsInRoom ob5 = new ObjectsInRoom(mapWidth, mapHeight, drset1, opset1,rkset1,2,3,0);
+		ArrayList<Opponent> opset5 = new ArrayList<Opponent>();
+		opset5.add(new Opponent(mapWidth/100*51,mapHeight/100*70,hbOp));
+		opset5.add(new Opponent(mapWidth/100*51,mapHeight/100*45,hbOp));
+		opset5.add(new Opponent(mapWidth/100*30,mapHeight/100*45,hbOp));
+		opset5.add(new Opponent(mapWidth/100*70,mapHeight/100*45,hbOp));
+		
+		ArrayList<Rock> rkset5 = new ArrayList<Rock>();
+		rkset5.add(new Rock(mapWidth/100*51,mapHeight/100*62,hbRk));
+		rkset5.add(new Rock(mapWidth/100*30,mapHeight/100*62,hbRk));
+		rkset5.add(new Rock(mapWidth/100*70,mapHeight/100*62,hbRk));
+		ObjectsInRoom ob5 = new ObjectsInRoom(mapWidth, mapHeight, drset5, opset5,rkset5,1,2,1);
 		ArrayList<GameObject> obset5 = ob5.getObjects();
 		Room r5 = new Room(drset5, obset5);
 		rooms.add(r5);
@@ -67,7 +92,7 @@ public class Floor1 {
 		ArrayList<Door> drset6 = new ArrayList<Door>();
 		drset6.add(new Door(3, 1,hbDoor));
 		ArrayList<GameObject> ob6 = new ArrayList<GameObject>(); //ObjectsInRoom(mapWidth, mapHeight, drset1, opset1,rkset1,0,0,0);
-		Boss b= new Boss(500,500,null);
+		Boss b= new Boss(mapWidth/100*70,mapHeight/100*30,null);
 			//ArrayList<GameObject> obset6 = ob6.getObjects();
 		ob6.add(b);
 		Room r6 = new Room(drset6, ob6);

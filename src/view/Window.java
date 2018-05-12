@@ -21,6 +21,7 @@ public class Window extends JFrame {
 	private Map pan = new Map();
 	private Inventaire inv = new Inventaire();
 	private GameOver go = new GameOver();
+	private Win win = new Win();
 
 	public Window() {
 		this.setTitle("Dagon");
@@ -78,6 +79,11 @@ public class Window extends JFrame {
 		this.getContentPane().add(this.go, BorderLayout.CENTER);
 		this.setVisible(true);
 		
+	}
+	public void win() {
+		this.getContentPane().remove(this.pan);
+		this.getContentPane().add(this.win, BorderLayout.CENTER);
+		this.setVisible(true);
 	}
 
 }

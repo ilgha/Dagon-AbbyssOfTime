@@ -47,7 +47,7 @@ public class Inventaire extends JPanel {
 		
 		//Barre de vie
 		this.lb = new LifeBar(this.player);
-		g.drawImage(this.lb.getLife(), this.getHeight() / 100 * 3, this.getHeight() / 100 * 5,
+		g.drawImage(this.lb.getLife(), this.getHeight() / 100 * 6, this.getHeight() / 100 * 5,
 				this.getWidth() / 100 * 50, this.getHeight() / 100 * 60, null);
 		//Clés
 		g.drawImage(key, 0, this.getHeight() / 100 * 69, this.getWidth() / 100 * 50, this.getHeight() / 100 * 10, null);

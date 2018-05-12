@@ -35,13 +35,13 @@ public class Game implements KillableObserver {
 		this.hb = new HitBox(window.getMapWidth() / 100 * 3, window.getMapHeight() / 100 * 6);
 		this.hbKey = new HitBox(window.getMapWidth() / 100 * 2, window.getMapHeight() / 100 * 4);
 		this.hbDoor = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
-		this.hbRock = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
+		this.hbRock = new HitBox(window.getMapWidth() / 100 * 15, window.getMapHeight() / 100 * 15);
 		//this.hbBoss = 
 
 		Player player = new Player(playerCenterX, playerCenterY, hb);
 		this.player = player;
 		this.objects.add(player);
-		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor, this.hb,this.hbRock);
+		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor, this.hb,this.hbRock,this.hbBoss);
 		// déplacement fluide
 		Timer timer = new Timer(33, new ActionListener() {
 			@Override
@@ -76,7 +76,7 @@ public class Game implements KillableObserver {
 			player.setPosY(window.getMapHeight() / 100 * 20);
 		}
 		if (door.getDirection() == 3) {
-			player.setPosX(window.getMapWidth() - door.getPosX() - player.getHitBox().getDeltaX() * 12);
+			player.setPosX(window.getMapWidth()/100*89);
 			player.setPosY(door.getPosY());
 		}
 		this.floor1.nextRoom(room, door);
@@ -192,12 +192,13 @@ public class Game implements KillableObserver {
 			if(obj instanceof Boss) {
                 System.out.println("as");
                 Boss B = (Boss) obj;
-                B.move(this.getMapWidth()/100*10);
+                B.move(this.getMapWidth()/1000);
                 if (B.isAtPosition(this.player)) {
 					this.player.activate(B.getDmg());
 					if (this.player.getLife() == 0)
 						this.gameOver();
             }
+			}
 			if (obj instanceof Opponent) {
 				Opponent o = (Opponent) obj;
 				int diffX = player.getPosX() - o.getPosX();
@@ -285,7 +286,17 @@ public class Game implements KillableObserver {
 
 						}
 					}
+					if (objects.get(j) instanceof Boss) {
 
+						Boss boss = (Boss) objects.get(j);
+						if (p.isAtPosition(boss)) {
+							toActivate.add(i);
+							toActivate.add(j);
+							if (boss.getLife() == 0)
+								this.win();
+						}
+
+					}
 				}
 
 				for (int j = 0; j < objects.size(); j++) {
@@ -302,7 +313,7 @@ public class Game implements KillableObserver {
 					toActivate.add(i);
 
 				}
-				p.move(20);
+				p.move(40);
 
 			}
 
@@ -499,6 +510,9 @@ public class Game implements KillableObserver {
 
 	private void gameOver() {
 		this.window.gameOver();
-
+		
+	}
+	private void win() {
+		this.window.win();
 	}
 }

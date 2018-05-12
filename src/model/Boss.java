@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 public class Boss extends Ennemi {
     private BufferedImage Boss;
     private int a;
+	private int lifePoints = 1;
 
 
     public Boss(int X, int Y, HitBox hb) {
@@ -38,12 +39,20 @@ public class Boss extends Ennemi {
 		return 3;
 
 	}
+    public void activate(int dmg) {
+		this.lifePoints -= dmg;
 
+	}
 
     @Override
     public BufferedImage getImage() {
 
         return Boss;
     }
+
+	public int getLife() {
+		// TODO Auto-generated method stub
+		return this.lifePoints;
+	}
 
 }

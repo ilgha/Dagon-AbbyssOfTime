@@ -67,14 +67,14 @@ public class Map extends JPanel {
 
 			}
 			if (door.getDirection() == 1) {
-				door.setPosX(this.getWidth() / 100 * 52);
+				door.setPosX(this.getWidth() / 100 * 51);
 				door.setPosY(this.getHeight() / 100 * 12);
 				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 50,
 						door.getPosY() - doorHeight / 100 * 50, doorWidth, doorHeight, null);
 
 			}
 			if (door.getDirection() == 2) {
-				door.setPosX(this.getWidth() / 100 * 52);
+				door.setPosX(this.getWidth() / 100 * 51);
 				door.setPosY(this.getHeight() / 100 * 86);
 				g.drawImage(door.getImage(), door.getPosX() - doorWidth / 100 * 53,
 						door.getPosY() - doorHeight / 100 * 20, doorWidth, doorHeight, null);

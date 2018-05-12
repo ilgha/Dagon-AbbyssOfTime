@@ -6,8 +6,7 @@ import java.util.Random;
 public class ObjectsInRoom {
 
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
-	private ArrayList<Opponent> opponents = new ArrayList<Opponent>();
-	private ArrayList<Rock> rocks = new ArrayList<Rock>();
+
 
 	private int nEnemys;
 	private int nKeys;
@@ -18,17 +17,15 @@ public class ObjectsInRoom {
 	public ObjectsInRoom(int mapWidth, int mapHeight, ArrayList<Door> doors, ArrayList<Opponent> opponents,
 			ArrayList<Rock> rocks, int nPo, int nDin, int nK) {
 
-		int NumberEnemys = opponents.size();
-		this.opponents = opponents;
-		this.nEnemys = NumberEnemys;
-
+		this.nEnemys = opponents.size();
+		
 		this.nRocks = rocks.size();
-		this.rocks = rocks;
+		
 		this.nPotions = nPo;
 		this.nDinamites = nDin;
 		this.nKeys = nK;
 
-		int nEnemysSansConsomables = nEnemys - (nDinamites + nPotions + nKeys);
+		int nEnemysSansConsomables = nEnemys;
 
 		for (int i = 0; i < nRocks; i++) {
 
@@ -38,7 +35,7 @@ public class ObjectsInRoom {
 		}
 
 		for (int i = 0; i < nKeys; i++) {
-			if (this.opponents.size() != 0) {
+			if (opponents.size() != 0) {
 				Opponent enemy = opponents.get(i);
 				enemy.setConsomable(1);
 				this.objects.add(enemy);
@@ -46,8 +43,8 @@ public class ObjectsInRoom {
 			}
 		}
 
-		for (int i = nKeys; i <= nPotions; i++) {
-			if (this.opponents.size() != 0) {
+		for (int i = nKeys; i < nKeys+nPotions; i++) {
+			if (opponents.size() != 0) {
 				Opponent enemy = opponents.get(i);
 
 				enemy.setConsomable(2);
@@ -56,8 +53,8 @@ public class ObjectsInRoom {
 			}
 		}
 
-		for (int i = nKeys+nPotions; i <= nDinamites; i++) {
-			if (this.opponents.size() != 0) {
+		for (int i = nKeys+nPotions; i < nKeys+nPotions+nDinamites; i++) {
+			if (opponents.size() != 0) {
 				Opponent enemy = opponents.get(i);
 
 				enemy.setConsomable(3);
@@ -66,8 +63,8 @@ public class ObjectsInRoom {
 			}
 		}
 
-		for (int i = 0; i < nEnemysSansConsomables; i++) {
-			if (this.opponents.size() != 0) {
+		for (int i = nKeys+nPotions+nDinamites; i < nEnemysSansConsomables; i++) {
+			if (opponents.size() != 0) {
 				Opponent enemy = opponents.get(i);
 				
 				enemy.setConsomable(0);
