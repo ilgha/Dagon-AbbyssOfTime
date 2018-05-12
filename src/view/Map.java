@@ -90,7 +90,7 @@ public class Map extends JPanel {
 
 		}
 		for (GameObject obj : objects) {
-
+			//on gère la superposition des sprites avec ces if
 			if (obj instanceof Opponent) {
 				Opponent enemy = (Opponent) obj;
 				g.drawImage(enemy.getImage(), enemy.getPosX() - playerWidth / 2, enemy.getPosY() - playerHeight / 2,

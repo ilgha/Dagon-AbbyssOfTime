@@ -40,6 +40,7 @@ public class Game implements KillableObserver {
 		this.player = player;
 		this.objects.add(player);
 		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
+		//déplacement fluide
 		Timer timer = new Timer(33, new ActionListener() {
 			 
 			@Override
