@@ -11,6 +11,7 @@ public class ObjectsInRoom {
 	private int nKeys = 0;
 	private int nPotions = 1;
 	private int nDinamites = 1;
+	private int nRocks = 3;
 
 	public ObjectsInRoom(int mapWidth, int mapHeight, ArrayList<Door> doors, int NumberEnemys) {
 		int playerWidth = mapWidth / 100 * 6;
@@ -20,7 +21,6 @@ public class ObjectsInRoom {
 
 		this.doors = doors;
 		this.nEnemys = NumberEnemys;
-		Random rand = new Random();
 
 		for (Door door : this.doors) {
 			if (door.getType() == 2) {
@@ -29,7 +29,14 @@ public class ObjectsInRoom {
 		}
 
 		int nEnemysSansConsomables = nEnemys - (nDinamites + nPotions + nKeys);
-
+		
+		for (int i=0; i<nRocks;i++) {
+            Rock rock = new Rock(
+                    (int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),
+                    (int) ((mapWidth / 100 * Math.random() * 20) * Math.pow(-1, i + 1) + playerCenterY), null);
+            rock.setConsomable(2);
+            this.objects.add(rock);
+        }
 		for (int i = 0; i < nKeys; i++) {
 			Opponent enemy = new Opponent(
 					(int) ((mapHeight / 100 * Math.random() * 20) * Math.pow(-1, i) + playerCenterX),

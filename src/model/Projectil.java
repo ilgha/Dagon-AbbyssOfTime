@@ -17,15 +17,16 @@ public class Projectil extends GameObject implements Directable, Damage {
 		this.direction = direction;
 
 		try {
-			this.projectilSprites = ImageIO.read(getClass().getResource("/images/projectile.png"));
+			this.projectil = ImageIO.read(getClass().getResource("/images/projectile_balle.png"));
 		} catch (IOException e) {
 			System.out.println("no Image");
 		}
-		if (this.direction == 0 || this.direction == 3) {
-			projectil = projectilSprites.getSubimage(8, 3, 13, 6);
+		/*if (this.direction == 0 || this.direction == 3) {
+			projectil = projectilSprites.getSubimage(8, 0, 14, 14);
 		} else {
-			projectil = projectilSprites.getSubimage(0, 0, 6, 13);
+			projectil = projectilSprites.getSubimage(0, 0, 7, 14);
 		}
+		*/
 	}
 
 	public void move(int s) {

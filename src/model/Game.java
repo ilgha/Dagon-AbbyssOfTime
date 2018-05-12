@@ -1,6 +1,10 @@
 package model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.Timer;
 
 import Threads.ThreadDinamite;
 import Threads.ThreadEnemys;
@@ -14,46 +18,60 @@ public class Game implements KillableObserver {
 	private Player player;
 	private Floor1 floor1;
 	private int delta;
+	private int x;
+	private int y;
 	private HitBox hb;
 	private HitBox hbKey;
 	private HitBox hbDoor;
+	private HitBox hbRock;
 	private ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	public Game(Window window) {
 		this.window = window;
-		int playerWidth = this.window.getMapWidth() / 100 * 6;
-		int playerHeight = this.window.getMapHeight() / 100 * 15;
 		int playerCenterX = this.window.getMapWidth() / 2;
 		int playerCenterY = this.window.getMapHeight() / 2;
 		this.delta = this.window.getMapWidth() / 100 * 3;
-		this.hb = new HitBox(window.getMapWidth() / 100 * 1, window.getMapHeight() / 100 * 5);
-		this.hbKey = new HitBox(window.getMapWidth() / 100 * 1, window.getMapHeight() / 100 * 2);
+		this.hb = new HitBox(window.getMapWidth() / 100 * 3, window.getMapHeight() / 100 * 6);
+		this.hbKey = new HitBox(window.getMapWidth() / 100 * 2, window.getMapHeight() / 100 * 4);
 		this.hbDoor = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
+		this.hbRock = new HitBox(window.getMapWidth() / 100 * 5, window.getMapHeight() / 100 * 5);
 
 		Player player = new Player(playerCenterX, playerCenterY, hb);
 		this.player = player;
 		this.objects.add(player);
 		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
-
+		Timer timer = new Timer(33, new ActionListener() {
+			 
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				animatePlayer();
+			}
+		});
+		timer.start();
 		window.setObjects(this.objects);
 		window.setFloor(this.floor1);
 		window.setPlayer(this.player);
 
 	}
+	
+	public void movePlayer(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
 
 	public void nextRoom(Door door, Room room) {
 
 		if (door.getDirection() == 0) {
-			player.setPosX(window.getMapWidth() / 100 * 98 - door.getPosX() + player.getHitBox().getDeltaX());
+			player.setPosX(window.getMapWidth() / 100 * 15);
 			player.setPosY(door.getPosY());
 		}
 		if (door.getDirection() == 1) {
 			player.setPosX(door.getPosX());
-			player.setPosY(window.getMapHeight() - door.getPosY() - player.getHitBox().getDeltaX() * 20);
+			player.setPosY(window.getMapHeight() / 100 * 80);
 		}
 		if (door.getDirection() == 2) {
 			player.setPosX(door.getPosX());
-			player.setPosY(window.getMapHeight() / 100 * 95 - door.getPosY() + player.getHitBox().getDeltaX());
+			player.setPosY(window.getMapHeight() / 100 * 20);
 		}
 		if (door.getDirection() == 3) {
 			player.setPosX(window.getMapWidth() - door.getPosX() - player.getHitBox().getDeltaX() * 12);
@@ -64,7 +82,7 @@ public class Game implements KillableObserver {
 
 	}
 
-	public void movePlayer(int x, int y) {
+	public void animatePlayer() {
 
 		ArrayList<Integer> toActivate = new ArrayList<Integer>();
 
@@ -83,10 +101,12 @@ public class Game implements KillableObserver {
 			objects.get(i).activate();
 		}
 		// Verifier si contre le mur
-		if (hitWall(this.player, x, y)) {
-			this.player.move(0, 0);
+		if (hitWall(player, x, y)) {
+			player.move(0, 0);
+		} else if (hitRock(player, x, y)) {
+			player.move(0, 0);
 		} else {
-			this.player.move(x, y);
+			player.move(x, y);
 		}
 		// Verifier si contre une porte
 		boolean changedRoom = false;
@@ -149,6 +169,10 @@ public class Game implements KillableObserver {
 				Opponent o = (Opponent) obj;
 				o.setHitbox(hb);
 			}
+			if (obj instanceof Rock) {
+				Rock r = (Rock) obj;
+				r.setHitBox(hb);
+			}
 
 		}
 
@@ -182,7 +206,17 @@ public class Game implements KillableObserver {
 					float x = (float) Math.cos(angle);
 					float y = (float) Math.sin(angle);
 					float d = distanceInBetween(o, this.player);
-					if (d <= this.window.getMapWidth() / 100 * 20) {
+					if (hitWall(o, x * 3, y * 3)) {
+						o.move(0, 0, 0);
+					} else if (hitRock(o, x * 3, y * 3)) {
+						int direction = o.getDirection();
+						if (direction == 0 || direction == 3) {
+							o.move(0, 1, 4);
+						} else {
+							o.move(1, 0, 4);
+
+						}
+					} else if (d <= this.window.getMapWidth() / 100 * 30) {
 						o.move(x, y, 3);
 					}
 				}
@@ -194,16 +228,17 @@ public class Game implements KillableObserver {
 	}
 
 	public synchronized void shoot(int dir) {
+		if (player.shoot()) {
+			Projectil p = new Projectil(player.getPosX(), player.getPosY(), dir,
+					new HitBox(window.getMapWidth() / 160 * 1, window.getMapWidth() / 160 * 1));
+			p.attachKillableObserver(this);
+			objects.add(p);
+			window.setObjects(this.objects);
 
-		Projectil p = new Projectil(player.getPosX(), player.getPosY(), dir,
-				new HitBox(window.getMapWidth() / 160 * 1, window.getMapHeight() / 200 * 1));
-		p.attachKillableObserver(this);
-		objects.add(p);
-		window.setObjects(this.objects);
-
-		if (this.projectilesNumber() == 1) {
-			Thread t2 = new Thread(new ThreadProj(100, this));
-			t2.start();
+			if (this.projectilesNumber() == 1) {
+				Thread t2 = new Thread(new ThreadProj(100, this));
+				t2.start();
+			}
 		}
 
 		window.setObjects(objects);
@@ -239,6 +274,16 @@ public class Game implements KillableObserver {
 
 				}
 
+				for (int j = 0; j < objects.size(); j++) {
+					if (objects.get(j) instanceof Rock) {
+						Rock r = (Rock) objects.get(j);
+						if (p.isAtPosition(r)) {
+							toActivate.add(i);
+						}
+
+					}
+				}
+
 				if (hitWall(p)) {
 					toActivate.add(i);
 
@@ -261,14 +306,15 @@ public class Game implements KillableObserver {
 		this.player.shortAttack();
 		this.player.setHitBox(new HitBox(window.getMapHeight() / 100 * 4, window.getMapWidth() / 100 * 6));
 		for (GameObject obj : objects) {
-			if (obj instanceof Opponent) {
-				Opponent o = (Opponent) obj;
+			if (obj instanceof ContientConsomable) {
+				GameObject o = (GameObject) obj;
 				if (player.isAtPosition(o)) {
 					o.activate(5);
 				}
 			}
 		}
 		this.player.setHitBox(hb);
+		window.update();
 	}
 
 	public void usePotion() {
@@ -320,11 +366,11 @@ public class Game implements KillableObserver {
 	}
 
 	public synchronized void throwDinamaite() {
-
-		Dinamite d = new Dinamite(player.getPosX(), player.getPosY(), player.getHitBox(), 3,
-				System.currentTimeMillis());
-		d.attachKillableObserver(this);
-		objects.add(d);
+		if (player.throwDinamite()) {
+			Dinamite d = new Dinamite(player.getPosX(), player.getPosY(), this.hbKey, 3, System.currentTimeMillis());
+			d.attachKillableObserver(this);
+			objects.add(d);
+		}
 
 		if (this.DinamiteNumber() == 1) {
 			Thread t3 = new Thread(new ThreadDinamite(100, this));
@@ -338,20 +384,21 @@ public class Game implements KillableObserver {
 
 		objects.remove(K);
 
-		if (K instanceof Opponent) {
-			Opponent o = (Opponent) K;
+		if (K instanceof ContientConsomable) {
+			ContientConsomable o = (ContientConsomable) K;
 
 			if (o.hasConsomable()) {
 				if (o.getConsomable() == 1) {
-					Key k1 = new Key(o.getPosX(), o.getPosY(), hbKey);
+					Key k1 = new Key(((GameObject) o).getPosX(), ((GameObject) o).getPosY(), hbKey);
 					k1.attachKillableObserver(this);
 					objects.add(k1);
 				} else if (o.getConsomable() == 2) {
-					Potion p1 = new Potion(o.getPosX(), o.getPosY(), hbKey);
+					System.out.println("in");
+					Potion p1 = new Potion(((GameObject) o).getPosX(), ((GameObject) o).getPosY(), hbKey);
 					p1.attachKillableObserver(this);
 					objects.add(p1);
 				} else if (o.getConsomable() == 3) {
-					DinamiteC d = new DinamiteC(o.getPosX(), o.getPosY(), hbKey);
+					DinamiteC d = new DinamiteC(((GameObject) o).getPosX(), ((GameObject) o).getPosY(), hbKey);
 					d.attachKillableObserver(this);
 					objects.add(d);
 				}
@@ -370,11 +417,11 @@ public class Game implements KillableObserver {
 
 	}
 
-	public boolean hitWall(GameObject obj, int x, int y) {
-		return obj.getPosX() + x < this.window.getMapWidth() / 100 * 10
-				|| obj.getPosX() + x > this.window.getMapWidth() / 100 * 93
-				|| obj.getPosY() + y < this.window.getMapHeight() / 100 * 13
-				|| obj.getPosY() + y > this.window.getMapHeight() / 100 * 84;
+	public boolean hitWall(GameObject obj, float f, float g) {
+		return obj.getPosX() + f < this.window.getMapWidth() / 100 * 10
+				|| obj.getPosX() + f > this.window.getMapWidth() / 100 * 93
+				|| obj.getPosY() + g < this.window.getMapHeight() / 100 * 13
+				|| obj.getPosY() + g > this.window.getMapHeight() / 100 * 84;
 	}
 
 	public boolean hitWall(GameObject obj) {
@@ -382,6 +429,20 @@ public class Game implements KillableObserver {
 				|| obj.getPosX() > this.window.getMapWidth() / 100 * 94
 				|| obj.getPosY() < this.window.getMapHeight() / 100 * 10
 				|| obj.getPosY() > this.window.getMapHeight() / 100 * 80;
+	}
+
+	public boolean hitRock(GameObject object, float x, float y) {
+
+		boolean Hit = false;
+		for (GameObject obj : objects) {
+			if (obj instanceof Rock) {
+				Rock r = (Rock) obj;
+				if (r.isAtNextPosition(object, x, y)) {
+					Hit = true;
+				}
+			}
+		}
+		return Hit;
 	}
 
 	// Boolean functions pour arreter les threads quand pas besoin

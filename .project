@@ -21,6 +21,11 @@
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/Bombe.png</location>
 		</link>
 		<link>
+			<name>src/Images/Crawler.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/Crawler.png</location>
+		</link>
+		<link>
 			<name>src/Images/Key.png</name>
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/Key.png</location>
@@ -31,6 +36,16 @@
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/LifeBar.png</location>
 		</link>
 		<link>
+			<name>src/Images/Rock.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/Rock.png</location>
+		</link>
+		<link>
+			<name>src/Images/Tower.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/Tower.png</location>
+		</link>
+		<link>
 			<name>src/Images/clé_sprite.png</name>
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/images/clé_sprite.png</location>
@@ -39,6 +54,11 @@
 			<name>src/Images/potion.png</name>
 			<type>1</type>
 			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/potion.png</location>
+		</link>
+		<link>
+			<name>src/Images/projectile_balle.png</name>
+			<type>1</type>
+			<location>C:/Users/Gaspard/git/Dagon-AbbyssOfTime/src/Images/projectile_balle.png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

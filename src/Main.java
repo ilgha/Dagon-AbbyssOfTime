@@ -1,5 +1,9 @@
 
 
+import java.awt.event.ActionListener;
+
+import javax.swing.Timer;
+
 import controller.Keyboard;
 import model.Game;
 import view.Window;
@@ -11,6 +15,7 @@ public class Main {
 		Game game = new Game(fen);
         Keyboard clav = new Keyboard(game);
         fen.setKeyListener(clav);
+
 
 	}
 

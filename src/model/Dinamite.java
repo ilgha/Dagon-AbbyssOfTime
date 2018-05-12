@@ -19,7 +19,7 @@ public class Dinamite extends GameObject {
 		} catch (IOException e) {
 			System.out.println("no Image");
 		}
-		Dinamite = DinamiteSprites.getSubimage(0, 0, 25, 20);
+		Dinamite = DinamiteSprites.getSubimage(39, 0, 30, 24);
 	}
 
 	public void activate() {

@@ -14,6 +14,7 @@ public class Player extends GameObject implements Directable {
 	private int Keys = 0;
 	private int Potions = 0;
 	private int Dinamites = 0;
+	private boolean pistol = true;
 
 	public Player(int X, int Y, HitBox hb) {
 		super(X, Y, hb);
@@ -126,14 +127,14 @@ public class Player extends GameObject implements Directable {
 
 	}
 
-	public Dinamite throwDinamite() {
+	public boolean throwDinamite() {
 		if (Dinamites == 0) {
 			System.out.println("Pas de dinamite");
-			return null;
+			return false;
 		} else {
 			this.Dinamites--;
-			Dinamite d = new Dinamite(this.getPosX(), this.getPosY(), this.getHitBox(), 3, System.currentTimeMillis());
-			return d;
+			
+			return true;
 		}
 
 	}
@@ -158,6 +159,10 @@ public class Player extends GameObject implements Directable {
 			this.life -= dmg;
 		}
 
+	}
+
+	public boolean shoot() {
+		return pistol;
 	}
 
 }

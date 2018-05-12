@@ -8,8 +8,7 @@ import javax.imageio.ImageIO;
 public class Opponent extends GameObject implements Killable, Directable,ContientConsomable {
 
 	private int lifePoints = 2;
-	private BufferedImage enemy;
-	private BufferedImage enemySprites;
+	private BufferedImage crawler;
 	private int direction = SOUTH;
 	private boolean Key = false;
 	private int consomable = 0;
@@ -17,12 +16,12 @@ public class Opponent extends GameObject implements Killable, Directable,Contien
 
 		super(X, Y, hb);
 		try {
-			this.enemySprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
+			this.crawler = ImageIO.read(getClass().getResource("/images/Crawler.png"));
 		} catch (IOException e) {
 			System.out.println("no Image");
 		}
 
-		enemy = enemySprites.getSubimage(26 + this.direction * 60, 4, 54, 82);
+
 
 	}
 
@@ -41,28 +40,12 @@ public class Opponent extends GameObject implements Killable, Directable,Contien
 		this.posX = this.posX + (int) (x * speed);
 		this.posY = this.posY + (int) (y * speed);
 
-		try {
-			this.enemySprites = ImageIO.read(getClass().getResource("/images/BigDaddy.png"));
-		} catch (IOException e) {
-			System.out.println("no Image");
-		}
-
-		enemy = enemySprites.getSubimage(26 + this.direction * 62, 4, 54, 82);
 
 	}
 
 	public int getDmg() {
 		return 1;
 
-	}
-
-	public void setKey() {
-		Key = true;
-	}
-
-	public boolean hasKey() {
-
-		return Key;
 	}
 
 	public void activate(int dmg) {
@@ -75,17 +58,16 @@ public class Opponent extends GameObject implements Killable, Directable,Contien
 	}
 
 	public int getDirection() {
-		// TODO Auto-generated method stub
 		return this.direction;
 	}
 
 	public BufferedImage getImage() {
-		return this.enemy;
+		return this.crawler;
 	}
 
 	@Override
 	public void activate() {
-		// TODO Auto-generated method stub
+
 
 	}
 	public void setConsomable(int i) {

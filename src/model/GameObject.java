@@ -39,6 +39,10 @@ public abstract class GameObject implements Killable {
 	public void setPosY(int y) {
 		this.posY = y;
 	}
+	
+	public void setHitBox(HitBox hb) {
+		this.hitbox = hb;
+	}
 
 	public boolean isAtPosition(GameObject go) {
 		int deltXmax = Math.abs(this.hitbox.getDeltaX()/2 + go.getHitBox().getDeltaX()/2); // retourne si la distance entre
@@ -49,6 +53,17 @@ public abstract class GameObject implements Killable {
 		int deltCenterY = Math.abs(this.posY - go.getPosY());
 		return deltCenterX <= deltXmax && deltCenterY <= deltYmax;
 	}
+	
+	public boolean isAtNextPosition(GameObject go,float x,float y) {
+        int deltXmax = Math.abs(this.hitbox.getDeltaX()/2 + go.getHitBox().getDeltaX()/2); // retourne si la distance entre
+                                                                                        // les deux centre <= les
+                                                                                        // dimensions des deux hitbox
+        int deltYmax = Math.abs(this.hitbox.getDeltaY()/2 + go.getHitBox().getDeltaY()/2);
+        int deltCenterX = (int) Math.abs(this.posX - (go.getPosX()+x));
+        int deltCenterY = (int) Math.abs(this.posY - (go.getPosY()+y));
+
+        return deltCenterX <= deltXmax && deltCenterY <= deltYmax;
+    }
 
 	public void attachKillableObserver(KillableObserver Ko) {
 		this.Ko = Ko;
