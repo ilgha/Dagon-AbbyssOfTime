@@ -33,6 +33,11 @@ public class Boss extends Ennemi {
         this.a+=d;
     this.posY=(int) (this.posY+400*Math.sin(a));
     }
+    
+    public int getDmg() {
+		return 3;
+
+	}
 
 
     @Override

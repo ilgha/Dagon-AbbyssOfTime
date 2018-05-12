@@ -3,6 +3,7 @@ package model;
 import java.awt.image.BufferedImage;
 
 public class Ennemi extends GameObject {
+	private int dmg;
 
     public Ennemi(int X, int Y, HitBox hb) {
         super(X, Y, hb);
@@ -28,5 +29,7 @@ public class Ennemi extends GameObject {
         // TODO Auto-generated method stub
         return null;
     }
+
+
 
 }

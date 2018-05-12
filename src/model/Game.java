@@ -192,7 +192,11 @@ public class Game implements KillableObserver {
 			if(obj instanceof Boss) {
                 System.out.println("as");
                 Boss B = (Boss) obj;
-                B.move(0.1);
+                B.move(this.getMapWidth()/100*10);
+                if (B.isAtPosition(this.player)) {
+					this.player.activate(B.getDmg());
+					if (this.player.getLife() == 0)
+						this.gameOver();
             }
 			if (obj instanceof Opponent) {
 				Opponent o = (Opponent) obj;
