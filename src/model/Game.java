@@ -40,9 +40,8 @@ public class Game implements KillableObserver {
 		this.player = player;
 		this.objects.add(player);
 		this.floor1 = new Floor1(this.window.getMapWidth(), this.window.getMapHeight(), this.hbDoor);
-		//déplacement fluide
+		// déplacement fluide
 		Timer timer = new Timer(33, new ActionListener() {
-			 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				animatePlayer();
@@ -54,7 +53,7 @@ public class Game implements KillableObserver {
 		window.setPlayer(this.player);
 
 	}
-	
+
 	public void movePlayer(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -305,12 +304,13 @@ public class Game implements KillableObserver {
 
 	public void shortAttack() {
 		this.player.shortAttack();
-		this.player.setHitBox(new HitBox(window.getMapHeight() / 100 * 4, window.getMapWidth() / 100 * 6));
+		this.player.setHitBox(new HitBox(window.getMapHeight() / 100 * 10, window.getMapWidth() / 100 * 11));
 		for (GameObject obj : objects) {
 			if (obj instanceof ContientConsomable) {
 				GameObject o = (GameObject) obj;
 				if (player.isAtPosition(o)) {
 					o.activate(5);
+					this.player.setHitBox(hb);
 				}
 			}
 		}
