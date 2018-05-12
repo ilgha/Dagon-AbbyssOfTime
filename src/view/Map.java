@@ -38,9 +38,9 @@ public class Map extends JPanel {
 
 		int playerWidth = this.getWidth() / 100 * 6;
 		int playerHeight = this.getHeight() / 100 * 15;
-		
+
 		int bossWidth = this.getWidth() / 100 * 30;
-		int bossHeight = this.getHeight() / 100*70;
+		int bossHeight = this.getHeight() / 100 * 70;
 
 		int rockWidth = this.getWidth() / 100 * 6;
 		int rockHeight = this.getHeight() / 100 * 15;
@@ -94,7 +94,7 @@ public class Map extends JPanel {
 
 		}
 		for (GameObject obj : objects) {
-			//on gère la superposition des sprites avec ces if
+			// on gère la superposition des sprites avec ces if
 			if (obj instanceof Opponent) {
 				Opponent enemy = (Opponent) obj;
 				g.drawImage(enemy.getImage(), enemy.getPosX() - playerWidth / 2, enemy.getPosY() - playerHeight / 2,
@@ -103,7 +103,8 @@ public class Map extends JPanel {
 			}
 			if (obj instanceof Rock) {
 				Rock r = (Rock) obj;
-				g.drawImage(r.getImage(), r.getPosX() - rockWidth /2, r.getPosY()- rockHeight/2, rockWidth, rockHeight, null);
+				g.drawImage(r.getImage(), r.getPosX() - rockWidth / 2, r.getPosY() - rockHeight / 2, rockWidth,
+						rockHeight, null);
 
 			}
 			if (obj instanceof Projectil) {
@@ -120,7 +121,7 @@ public class Map extends JPanel {
 			}
 			if (obj instanceof Potion) {
 				Potion p = (Potion) obj;
-				g.drawImage(p.getImage(), p.getPosX() - itemWidth / 2, p.getPosY()- itemHeight / 2, itemWidth ,
+				g.drawImage(p.getImage(), p.getPosX() - itemWidth / 2, p.getPosY() - itemHeight / 2, itemWidth,
 						itemHeight, null);
 
 			}
@@ -128,7 +129,7 @@ public class Map extends JPanel {
 			if (obj instanceof DinamiteC) {
 
 				DinamiteC d = (DinamiteC) obj;
-				g.drawImage(d.getImage(), d.getPosX() - itemWidth / 2, d.getPosY()- itemHeight / 2, itemWidth ,
+				g.drawImage(d.getImage(), d.getPosX() - itemWidth / 2, d.getPosY() - itemHeight / 2, itemWidth,
 						itemHeight, null);
 
 			}
@@ -141,11 +142,11 @@ public class Map extends JPanel {
 			}
 			if (obj instanceof Boss) {
 
-                Boss b = (Boss) obj;
-                g.drawImage(b.getImage(), b.getPosX() - bossWidth / 2, b.getPosY() - bossHeight / 2,
-                		bossWidth, bossHeight, null);
+				Boss b = (Boss) obj;
+				g.drawImage(b.getImage(), b.getPosX() - bossWidth / 2, b.getPosY() - bossHeight / 2, bossWidth,
+						bossHeight, null);
 
-            }
+			}
 			if (obj instanceof Player) {
 				Player player = (Player) obj;
 				g.drawImage(player.getImage(), player.getPosX() - playerWidth / 2, player.getPosY() - playerHeight / 2,
